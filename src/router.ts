@@ -11,7 +11,14 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      children: [
+        {
+          path: '/question/:title',
+          name: 'question',
+          component: r => require.ensure( [], () => r (require('@/views/question.vue'))),
+        }
+      ]
     }
   ]
 })

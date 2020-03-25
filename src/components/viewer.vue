@@ -27,20 +27,7 @@ export default {
   components: {
     'v-vuemarkdown': VueMarkdown
   },
-  watch: {
-    $route() {
-      this.parseHash()
-    }
-  },
   methods: {
-    parseHash() {
-      const hash = (this.$route.hash || '').replace(/^#*/, '').split('#')
-      if (hash.length) {
-        this.$store.dispatch('server', hash[0]).then(data => {
-          this.content = data
-        })
-      }
-    },
     rendered() {
       this.$nextTick(() => {
         window.scrollTo(0, 0)
@@ -48,10 +35,15 @@ export default {
       })
     }
   },
+  destroyed() {
+    this.$bus.$off('markdownContent')
+  },
   mounted() {
-    this.parseHash()
-    this.$bus.$off('markdownContent').$on('markdownContent', content => {
+    this.$bus.$on('markdownContent', content => {
       this.content = content
+    })
+    this.$store.dispatch('question', this.$route.params.title).then(data => {
+      this.content = data
     })
     Prism.highlightAll()
   }

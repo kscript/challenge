@@ -1,3 +1,4 @@
 export default class StoreData {
-  [prop: string]: any;
+  public question: anyObject<string> = {}
+  public constructor() {}
 }
