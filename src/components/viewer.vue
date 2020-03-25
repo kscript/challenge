@@ -50,3 +50,9 @@ export default {
 }
 </script>
 
+<style lang="scss" scoped>
+.page-markdown{
+  width: $markdown_width;
+  margin: 0 auto;
+}
+</style>

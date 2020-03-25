@@ -1,10 +1,12 @@
 <template>
-  <div class="home">
+  <el-container class="home" direction="vertical">
     <v-header />
-    <v-aside />
-    <router-view />
+    <el-container>
+      <v-aside />
+      <router-view />
+    </el-container>
     <v-footer />
-  </div>
+  </el-container>
 </template>
 
 <script lang="ts">
@@ -21,3 +23,8 @@ import footer from '@/components/footer.vue'
 })
 export default class Home extends Vue {}
 </script>
+<style lang="scss" scoped>
+.el-container{
+  height: 100%;
+}
+</style>

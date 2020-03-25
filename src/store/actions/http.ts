@@ -9,7 +9,7 @@ const actions: ActionTree<StoreData, StoreData> = {
         return axios({
             url: `/question/${title}`,
             method: 'get'
-        }).then(({ data }) => {
+        }).then(({ data: { data } }) => {
             commit('question', { title, data })
             return data
         })
