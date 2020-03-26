@@ -1,13 +1,16 @@
+const fs = require('fs')
+const path = require('path')
 module.exports = {
     question: {
         format(method, params, result){
+            let title = /\.md$/.test(params.title) ? params.title : `${params.title}.md`
+            return new Promise((resolve, reject) => {
+                fs.readFile(path.join(process.cwd(), '/public/question/' + title), (err, data) => {
+                    err ? reject({msg: '问题不存在'}) : resolve({ data: data.toString() })
+                })
+            })
         },
         get: {
-            data:  `## 介绍一下CSS的盒模型
-            CSS的盒模型有两种，IE 盒模型、标准盒模型
-            IE 盒模型；IE的content部分包含了 border 和 pading;
-            标准盒模型： 内容(content)、填充(padding)、边界(margin)、 边框(border).
-            `
         }
     }
 }

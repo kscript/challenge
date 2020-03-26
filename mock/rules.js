@@ -1,3 +1,3 @@
 module.exports = {
-    '/question/:title': 'question'
+    '/question/:title': 'question?title=:title'
 }

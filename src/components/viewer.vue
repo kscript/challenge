@@ -42,7 +42,7 @@ export default {
     this.$bus.$on('markdownContent', content => {
       this.content = content
     })
-    this.$store.dispatch('question', this.$route.params.title).then(data => {
+    this.$store.dispatch('question', [this.$route.params.title]).then(data => {
       this.content = data
     })
     Prism.highlightAll()
