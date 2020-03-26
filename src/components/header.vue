@@ -2,7 +2,9 @@
   <el-header>
     <el-row>
       <el-col class="text-center" :span="2">
-        <img src="@/assets/logo.png" alt="" class="logo">
+        <router-link :to="{name: 'index'}">
+          <img src="@/assets/logo.png" alt="" class="logo">
+        </router-link>
       </el-col>
       <el-col :span="4">
         <span class="title">

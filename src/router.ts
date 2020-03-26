@@ -10,9 +10,15 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home,
+      name: 'index',
+      component: r => require.ensure( [], () => r (require('@/views/index.vue'))),
+      redirect: '/home',
       children: [
+        {
+          path: '/home',
+          name: 'home',
+          component: r => require.ensure( [], () => r (require('@/views/home.vue'))),
+        },
         {
           path: '/question/:title',
           name: 'question',
