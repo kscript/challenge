@@ -24,7 +24,7 @@ export default class Viewer extends Vue {
       this.source = source
     })
     this.$store
-      .dispatch('question', [this.$route.params.title])
+      .dispatch('question', [this.$route.params])
       .then(source => {
         this.source = source
       })
