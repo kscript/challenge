@@ -1,5 +1,7 @@
 <template>
-  <el-footer></el-footer>
+  <el-footer class="text-center">
+    &copy;<a href="/">kscript<i class="iconfont icon-github"></i>  </a> 2020-
+  </el-footer>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
@@ -7,3 +9,16 @@ import { Component, Vue } from 'vue-property-decorator'
 })
 export default class Footer extends Vue {}
 </script>
+<style lang="scss" scoped>
+.el-footer{
+  height: 60px;
+  line-height: 60px;
+  // color: $footer_color;
+  // background: $footer_bg;
+  a{
+    // color: $footer_color;
+    padding: 0 5px;
+    margin-right: 10px;
+  }
+}
+</style>
