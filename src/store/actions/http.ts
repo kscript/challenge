@@ -15,6 +15,9 @@ const actions: ActionTree<StoreData, StoreData> = {
     })
   },
   categorys({ state, commit }) {
+    if (state.categorys.length) {
+      return state.categorys
+    }
     return axios({
       url: `/question/categorys`,
       method: 'get'
