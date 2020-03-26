@@ -1,57 +1,41 @@
 <template>
-  <div class="page-markdown">
-    <v-vuemarkdown
-      class="md-editor-preview markdown-body"
-      ref="markdown"
-      toc
-      toc-anchor-link-symbol
-      :source="content"
-      :watches="watches"
-      @rendered="rendered"
-    ></v-vuemarkdown>
-  </div>
+  <v-markdown
+    class="md-editor-preview markdown-body"
+    ref="markdown"
+    toc
+    toc-anchor-link-symbol
+    :source="source"
+    :watches="watches"
+  ></v-markdown>
 </template>
-<script>
-import 'github-markdown-css'
-import 'prismjs'
-import 'prismjs/themes/prism.css'
-import VueMarkdown from 'vue-markdown'
-
-export default {
-  data() {
-    return {
-      watches: ['source', 'show', 'toc'],
-      content: ''
-    }
-  },
+<script lang="ts">
+import markdown from './markdown.vue'
+import { Component, Vue, Prop } from 'vue-property-decorator'
+@Component({
   components: {
-    'v-vuemarkdown': VueMarkdown
-  },
-  methods: {
-    rendered() {
-      this.$nextTick(() => {
-        window.scrollTo(0, 0)
-        Prism.highlightAll()
+    'v-markdown': markdown
+  }
+})
+export default class Viewer extends Vue {
+  public source: string = ''
+  public watches = ['source', 'show', 'toc']
+  protected mounted() {
+    this.$bus.$on('markdownsource', (source: string) => {
+      this.source = source
+    })
+    this.$store
+      .dispatch('question', [this.$route.params.title])
+      .then(source => {
+        this.source = source
       })
-    }
-  },
-  destroyed() {
-    this.$bus.$off('markdownContent')
-  },
-  mounted() {
-    this.$bus.$on('markdownContent', content => {
-      this.content = content
-    })
-    this.$store.dispatch('question', [this.$route.params.title]).then(data => {
-      this.content = data
-    })
-    Prism.highlightAll()
+  }
+  protected destroyed() {
+    this.$bus.$off('markdownsource')
   }
 }
 </script>
-
 <style lang="scss" scoped>
-.page-markdown{
+.page-markdown {
   width: $markdown_width;
   margin: 0 auto;
 }
