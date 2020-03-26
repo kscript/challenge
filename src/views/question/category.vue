@@ -1,10 +1,10 @@
 <template>
-  <el-aside>
-  </el-aside>
+  <el-main>
+  </el-main>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 @Component({
 })
-export default class Aside extends Vue {}
+export default class Category extends Vue {}
 </script>

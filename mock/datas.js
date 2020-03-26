@@ -12,5 +12,19 @@ module.exports = {
         },
         get: {
         }
+    },
+    categorys: {
+       get: {
+           data: [
+                ['Javascript', '函数、闭包、继承、原型链、事件循环, 类型转换 .. '],
+                ['CSS'],
+                ['HTML'],
+                ['VueJs'],
+                ['ReactJs'],
+                ['NodeJs'],
+                ['HTTP'],
+                ['浏览器'],
+           ]
+       } 
     }
 }

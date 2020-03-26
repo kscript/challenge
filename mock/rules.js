@@ -1,3 +1,4 @@
 module.exports = {
-    '/question/:title': 'question?title=:title'
+    '/question/:categorys': 'categorys?categorys=:categorys',
+    '/question/:categorys/:title': 'question?categorys=:categorys&title=:title'
 }
