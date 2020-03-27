@@ -55,7 +55,7 @@ export default class Category extends Vue {
 .el-container {
   width: 1200px;
   margin: 0 auto;
-  /deep/ .el-table__row.selected {
+  ::v-deep .el-table__row.selected {
     background: #f5f7fa;
   }
 }
