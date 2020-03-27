@@ -14,6 +14,17 @@ module.exports = {
         get: {
         }
     },
+    category: {
+        format(method, params, result){
+            let category = params.category
+            return new Promise((resolve, reject) => {
+                fs.readFile(path.join(process.cwd(), '/public/question/', category, '/', 'list.json'), (err, data) => {
+                    resolve({ data: err ? [] : JSON.parse(data.toString()) })
+                })
+            })
+        },
+        get: {}
+    },
     categorys: {
        get: {
            data: [

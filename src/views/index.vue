@@ -1,22 +1,20 @@
 <template>
   <el-container direction="vertical">
     <v-header />
-    <el-container>
-      <el-main class="view-index-main">
-        <el-row>
-          <el-col :span="4" v-for="(vo, index) in categorys" :key="index">
-            <router-link :to="{
-              path: '/question/' + vo[0] + '/'
-            }">
-              <section>
-                <h3 :data-content="vo[0]">{{ vo[0] }}</h3>
-                <p>{{ vo[1] || '' }}</p>
-              </section>
-            </router-link>
-          </el-col>
-        </el-row>
-      </el-main>
-    </el-container>
+    <el-main class="view-index-main">
+      <el-row>
+        <el-col :span="4" v-for="(vo, index) in categorys" :key="index">
+          <router-link :to="{
+            path: '/question/' + vo[0] + '/'
+          }">
+            <section>
+              <h3 :data-content="vo[0]">{{ vo[0] }}</h3>
+              <p>{{ vo[1] || '' }}</p>
+            </section>
+          </router-link>
+        </el-col>
+      </el-row>
+    </el-main>
     <v-footer />
   </el-container>
 </template>

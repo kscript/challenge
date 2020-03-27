@@ -1,15 +1,49 @@
 <template>
   <el-main>
-    
+    <el-container>
+      <el-aside>
+        <el-table :data="category" :show-header="false" v-show="category.length" @row-click="selectTitle">
+          <el-table-column>
+            <template slot-scope="scope">
+              {{ scope.row.title }}
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-aside>
+      <el-main>
+        <v-viewer :title="title"></v-viewer>
+      </el-main>
+    </el-container>
   </el-main>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import viewer from '@/components/viewer.vue'
 @Component({
+  components: {
+    'v-viewer': viewer
+  }
 })
 export default class Category extends Vue {
+  public category = []
+  public title = ''
+  public selectTitle(row: anyObject) {
+    this.title = row.title
+  }
   protected mounted() {
-
+    const params = this.$route.params
+    this.$store.dispatch('category', params.category).then((category) => {
+      this.category = category
+      this.selectTitle({
+        title: params.title || category[0].title
+      })
+    })
   }
 }
 </script>
+<style lang="scss" scoped>
+.el-container {
+  width: 1200px;
+  margin: 0 auto;
+}
+</style>

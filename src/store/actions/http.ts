@@ -19,7 +19,7 @@ const actions: ActionTree<StoreData, StoreData> = {
       return state.categorys[category]
     }
     return axios({
-      url: `/question/category`,
+      url: `/question/category/${category}`,
       method: 'get'
     }).then(({ data: { data } }) => {
       commit('categoryMap', { category, data })

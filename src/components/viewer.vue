@@ -10,7 +10,7 @@
 </template>
 <script lang="ts">
 import markdown from './markdown.vue'
-import { Component, Vue, Prop } from 'vue-property-decorator'
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 @Component({
   components: {
     'v-markdown': markdown
@@ -19,15 +19,29 @@ import { Component, Vue, Prop } from 'vue-property-decorator'
 export default class Viewer extends Vue {
   public source: string = ''
   public watches = ['source', 'show', 'toc']
+  @Prop({
+    type: String,
+    required: false,
+    default: ''
+  })
+  public title!: string
+  get newTitle() {
+    return this.title || this.$route.params.title
+  }
+  @Watch('newTitle', { immediate: true })
+  public onTitleChange(title: string, oldTitle: string) {
+    if (title) {
+      this.$store
+        .dispatch('question', [{...this.$route.params, title}])
+        .then(source => {
+          this.source = source
+        })
+    }
+  }
   protected mounted() {
     this.$bus.$on('markdownsource', (source: string) => {
       this.source = source
     })
-    this.$store
-      .dispatch('question', [this.$route.params])
-      .then(source => {
-        this.source = source
-      })
   }
   protected destroyed() {
     this.$bus.$off('markdownsource')

@@ -1,9 +1,7 @@
 <template>
   <el-container direction="vertical">
     <v-header />
-    <el-container>
-      <router-view></router-view>
-    </el-container>
+    <router-view></router-view>
     <v-footer />
   </el-container>
 </template>

@@ -1,7 +1,5 @@
 <template>
-  <el-main>
-    <v-viewer></v-viewer>
-  </el-main>
+  <v-viewer></v-viewer>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
