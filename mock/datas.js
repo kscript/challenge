@@ -7,7 +7,7 @@ module.exports = {
             let category = params.category
             return new Promise((resolve, reject) => {
                 fs.readFile(path.join(process.cwd(), '/public/question/', category, '/', title), (err, data) => {
-                    err ? reject({msg: '问题不存在'}) : resolve({ data: data.toString() })
+                    err ? resolve({ data: '' }) : resolve({ data: data.toString() })
                 })
             })
         },
