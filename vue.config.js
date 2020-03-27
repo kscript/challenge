@@ -1,6 +1,6 @@
 module.exports = {
   publicPath: '/challenge/',
-  outputDir: '/docs/'
+  outputDir: '/docs/',
   devServer: {
     proxy: {
       '/api': {
