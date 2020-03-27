@@ -1,6 +1,6 @@
 module.exports = {
   publicPath: process.env.NODE_ENV === 'development' ? '/challenge/' : './',
-  outputDir: '/docs/',
+  outputDir: 'docs',
   devServer: {
     proxy: {
       '/api': {
