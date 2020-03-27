@@ -2,7 +2,13 @@
   <el-main>
     <el-container>
       <el-aside>
-        <el-table :data="category" :show-header="false" v-show="category.length" @row-click="selectTitle">
+        <el-table 
+          :data="category"
+          :show-header="false"
+          :row-class-name="tableRowClassName"
+          @row-click="selectTitle"
+          v-show="category.length"
+        >
           <el-table-column>
             <template slot-scope="scope">
               {{ scope.row.title }}
@@ -27,15 +33,19 @@ import viewer from '@/components/viewer.vue'
 export default class Category extends Vue {
   public category = []
   public title = ''
+  public rowKey = ''
   public selectTitle(row: anyObject) {
     this.title = row.title
+  }
+  public tableRowClassName({ row }: { row: anyObject }) {
+    return this.title === row.title ? 'selected' : ''
   }
   protected mounted() {
     const params = this.$route.params
     this.$store.dispatch('category', params.category).then((category) => {
       this.category = category
       this.selectTitle({
-        title: params.title || category[0].title
+        title: params.title || (category[0] || {}).title
       })
     })
   }
@@ -45,5 +55,8 @@ export default class Category extends Vue {
 .el-container {
   width: 1200px;
   margin: 0 auto;
+  /deep/ .el-table__row.selected {
+    background: #f5f7fa;
+  }
 }
 </style>

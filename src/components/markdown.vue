@@ -4,7 +4,7 @@
     ref="markdown"
     toc
     toc-anchor-link-symbol
-    :source="source"
+    :source="sourceInfo.markdown"
     :watches="watches"
     @rendered="rendered"
   ></v-vuemarkdown>
@@ -13,6 +13,7 @@
 import 'github-markdown-css'
 import 'prismjs'
 import 'prismjs/themes/prism.css'
+import { extract, parseConfig } from '@/utils/yaml-md'
 import { Component, Vue, Prop } from 'vue-property-decorator'
 // @ts-ignore
 import VueMarkdown from 'vue-markdown'
@@ -36,6 +37,11 @@ export default class Markdown extends Vue {
     }
   })
   public watches!: string[]
+  get sourceInfo() {
+    const res = extract(this.source) as anyObject<string>
+    const config = parseConfig(res.yaml)
+    return { ...res, config }
+  }
   public rendered() {
     this.$nextTick(() => {
       window.scrollTo(0, 0)

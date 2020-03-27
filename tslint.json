@@ -9,6 +9,7 @@
     ]
   },
   "rules": {
+    "no-bitwise": false,
     "no-empty": false,
     "indent": [
       true,
