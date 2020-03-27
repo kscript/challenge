@@ -16,7 +16,7 @@ const actions: ActionTree<StoreData, StoreData> = {
     return axios({
       url: `/question/${category}/${fullTitle}`,
       method: 'get'
-    }).then(({ data: { data } }) => {
+    }).then(({ data }) => {
       commit('question', { title, data })
       return data
     })
@@ -26,9 +26,9 @@ const actions: ActionTree<StoreData, StoreData> = {
       return state.categorys[category]
     }
     return axios({
-      url: `/question/category/${category}`,
+      url: `/question/${category}/list.json`,
       method: 'get'
-    }).then(({ data: { data } }) => {
+    }).then(({ data }) => {
       commit('categoryMap', { category, data })
       return data
     })
@@ -38,9 +38,9 @@ const actions: ActionTree<StoreData, StoreData> = {
       return state.categorys
     }
     return axios({
-      url: `/question/categorys`,
+      url: `/question/categorys.json`,
       method: 'get'
-    }).then(({ data: { data } }) => {
+    }).then(({ data }) => {
       commit('categorys', data)
       return data
     })
