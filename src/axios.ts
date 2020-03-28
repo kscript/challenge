@@ -1,8 +1,8 @@
 import axios, { AxiosError, AxiosResponse, AxiosRequestConfig } from 'axios'
 import * as qs from 'qs'
-
+import { runtime } from '@/config'
 const $axios = axios.create({
-  baseURL: process.env.NODE_ENV === 'development' ? '/api/' : '/challenge/',
+  baseURL: runtime.staticPath,
   timeout: 15000,
   transformRequest: [(data: anyObject) => {
     return data instanceof FormData ? data : qs.stringify(data)

@@ -1,6 +1,17 @@
 import { ActionTree } from 'vuex'
 import StoreData from '@/store/state'
 import axios from '@/axios'
+import { runtime } from '@/config'
+
+const cacheInfo = runtime.store.cache
+const cacheable = (key: string) => {
+  if (cacheInfo instanceof Object) {
+    return cacheInfo.hasOwnProperty(key) ? !!runtime.store[key] : true
+  } else {
+    return !!cacheInfo
+  }
+}
+
 const actions: ActionTree<StoreData, StoreData> = {
   question({ state, commit }, [{title = '', category = ''}, refresh = false]) {
     let fullTitle = ''
@@ -10,7 +21,7 @@ const actions: ActionTree<StoreData, StoreData> = {
     } else {
       fullTitle = `${title}.md`
     }
-    if (state.question.hasOwnProperty(title) && !refresh) {
+    if (cacheable('question') && state.question.hasOwnProperty(title) && !refresh) {
       return state.question[title]
     }
     return axios({
@@ -22,8 +33,8 @@ const actions: ActionTree<StoreData, StoreData> = {
     })
   },
   category({ state, commit }, category) {
-    if (state.categorys.hasOwnProperty(category)) {
-      return state.categorys[category]
+    if (cacheable('category') && state.categoryMap.hasOwnProperty(category)) {
+      return state.categoryMap[category]
     }
     return axios({
       url: `/question/${category}/list.json`,
@@ -34,7 +45,7 @@ const actions: ActionTree<StoreData, StoreData> = {
     })
   },
   categorys({ state, commit }) {
-    if (state.categorys.length) {
+    if (cacheable('categorys') && state.categorys.length) {
       return state.categorys
     }
     return axios({
