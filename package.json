@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:report": "vue-cli-service build  --report",
     "mock": "node mock",
     "lint": "vue-cli-service lint"
   },

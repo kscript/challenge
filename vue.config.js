@@ -21,6 +21,21 @@ module.exports = {
     .set('@', resolve('src'))
     .set('@@', resolve('/'))
   },
+  configureWebpack: (configure) => {
+    return {
+      externals: {
+        'vue': 'Vue',
+        'vue-router': 'VueRouter',
+        'vuex': 'Vuex',
+        'axios': 'axios',
+        'element-ui': 'ELEMENT',
+        'js-yaml': 'jsyaml',
+        'prismjs': 'Prism',
+        'esprima': 'esprima',
+        'unorm': 'unorm'
+      }
+    }
+  },
   css: {
     sourceMap: false,
     loaderOptions: {
