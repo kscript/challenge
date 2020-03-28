@@ -17,7 +17,7 @@
         </el-table>
       </el-aside>
       <el-main>
-        <v-viewer :title="title"></v-viewer>
+        <v-viewer :title="title" :question="question"></v-viewer>
       </el-main>
     </el-container>
   </el-main>
@@ -32,10 +32,12 @@ import viewer from '@/components/viewer.vue'
 })
 export default class Category extends Vue {
   public category = []
+  public question = {}
   public title = ''
   public rowKey = ''
   public selectTitle(row: anyObject) {
     this.title = row.title
+    this.question = row
   }
   public tableRowClassName({ row }: { row: anyObject }) {
     return this.title === row.title ? 'selected' : ''
@@ -44,9 +46,10 @@ export default class Category extends Vue {
     const params = this.$route.params
     this.$store.dispatch('category', params.category).then((category) => {
       this.category = category
-      this.selectTitle({
-        title: params.title || (category[0] || {}).title
-      })
+      if (category.length) {
+        this.question = category[0]
+        this.selectTitle(category[0])
+      }
     })
   }
 }

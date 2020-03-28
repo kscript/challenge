@@ -2,6 +2,8 @@ import { ActionTree } from 'vuex'
 import StoreData from '@/store/state'
 import axios from '@/axios'
 import { runtime } from '@/config'
+// @ts-ignore
+import path from 'path'
 
 const cacheInfo = runtime.store.cache
 const cacheable = (key: string) => {
@@ -13,7 +15,7 @@ const cacheable = (key: string) => {
 }
 
 const actions: ActionTree<StoreData, StoreData> = {
-  question({ state, commit }, [{title = '', category = ''}, refresh = false]) {
+  question({ state, commit }, [{title = '', path: fullPath = ''}, refresh = false]) {
     let fullTitle = ''
     if (/\.md$/.test(title)) {
       fullTitle = title
@@ -25,7 +27,7 @@ const actions: ActionTree<StoreData, StoreData> = {
       return state.question[title]
     }
     return axios({
-      url: `/question/${category}/${fullTitle}`,
+      url: path.join('/', fullPath),
       method: 'get'
     }).then(({ data }) => {
       commit('question', { title, data })
@@ -37,7 +39,7 @@ const actions: ActionTree<StoreData, StoreData> = {
       return state.categoryMap[category]
     }
     return axios({
-      url: `/question/${category}/list.json`,
+      url: `/question/${category}.json`,
       method: 'get'
     }).then(({ data }) => {
       commit('categoryMap', { category, data })

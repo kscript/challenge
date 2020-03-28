@@ -20,6 +20,14 @@ export default class Viewer extends Vue {
   public source: string = ''
   public watches = ['source', 'show', 'toc']
   @Prop({
+    type: Object,
+    required: false,
+    default() {
+      return {}
+    }
+  })
+  public question!: anyObject
+  @Prop({
     type: String,
     required: false,
     default: ''
@@ -32,7 +40,7 @@ export default class Viewer extends Vue {
   public onTitleChange(title: string, oldTitle: string) {
     if (title) {
       this.$store
-        .dispatch('question', [{...this.$route.params, title}])
+        .dispatch('question', [this.question])
         .then(source => {
           this.source = source
         })
