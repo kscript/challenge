@@ -32,6 +32,7 @@ module.exports = {
         'js-yaml': 'jsyaml',
         'prismjs': 'Prism',
         'esprima': 'esprima',
+        'vue-markdown': 'VueMarkdown',
         'unorm': 'unorm'
       }
     }
