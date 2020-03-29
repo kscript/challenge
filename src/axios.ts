@@ -10,6 +10,9 @@ const $axios = axios.create({
 })
 
 $axios.interceptors.request.use((config: AxiosRequestConfig) => {
+  if (config.url) {
+    config.url = config.url.replace(/^(\\|\/)/, '')
+  }
   return config
 }, (err: AxiosError) => {
   return Promise.reject(err)
