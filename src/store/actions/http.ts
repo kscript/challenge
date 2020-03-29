@@ -27,7 +27,7 @@ const actions: ActionTree<StoreData, StoreData> = {
       return state.question[title]
     }
     return axios({
-      url: path.join('/', fullPath),
+      url: fullPath,
       method: 'get'
     }).then(({ data }) => {
       commit('question', { title, data })
