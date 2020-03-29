@@ -9,5 +9,5 @@ import viewer from '@/components/viewer.vue'
     'v-viewer': viewer
   }
 })
-export default class Question extends Vue {}
+export default class QuestionViewer extends Vue {}
 </script>

@@ -10,6 +10,7 @@ export default new Router({
     {
       path: '/',
       name: 'index',
+      // redirect: '/question',
       component: r => require.ensure([], () => r(require('@/views/index.vue')))
     },
     {
@@ -19,14 +20,28 @@ export default new Router({
       children: [
         {
           path: '/question/:category',
-          name: 'questionCategory',
+          name: 'question_category',
           component: r => require.ensure([], () => r(require('@/views/question/category.vue'))),
         },
         {
           path: '/question/:category/:title',
-          name: 'questionViewer',
+          name: 'question_category_title',
           component: r => require.ensure([], () => r(require('@/views/question/viewer.vue'))),
         }
+      ]
+    },
+    {
+      path: '/article',
+      name: 'article',
+      component: r => require.ensure([], () => r(require('@/views/article/index.vue'))),
+      children: [
+      ]
+    },
+    {
+      path: '/knowledge',
+      name: 'knowledge',
+      component: r => require.ensure([], () => r(require('@/views/knowledge/index.vue'))),
+      children: [
       ]
     }
   ]

@@ -1,5 +1,5 @@
 const path = require('path')
-const prePath = '/challenge-docs/'
+const prePath = '/challenge-docs/dist/'
 const base = {
   // 静态数据存放路径
   staticPath: process.env.NODE_ENV === 'development' ? '/api/' : prePath,

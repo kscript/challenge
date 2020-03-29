@@ -1,6 +1,6 @@
 <template>
   <el-footer class="text-center">
-    &copy;<a href="/">kscript<i class="iconfont icon-github"></i>  </a> 2020-
+    &copy;kscript 2020-
   </el-footer>
 </template>
 <script lang="ts">

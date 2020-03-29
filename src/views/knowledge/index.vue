@@ -11,15 +11,14 @@
 import { Component, Vue } from 'vue-property-decorator'
 import header from '@/components/header.vue'
 import footer from '@/components/footer.vue'
-
 @Component({
   components: {
     'v-header': header,
-    'v-footer': footer
+    'v-footer': footer,
   }
 })
-export default class Index extends Vue {
-  public name = 'index'
+export default class Knowledge extends Vue {
+  public name = 'knowledge'
 }
 </script>
 <style lang="scss" scoped>
