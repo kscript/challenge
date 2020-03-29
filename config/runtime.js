@@ -1,11 +1,12 @@
 const path = require('path')
-const prePath = '/challenge-docs/dist/'
+const staticPath = '/challenge-docs/'
+const local_dir = 'dist'
 const base = {
   // 静态数据存放路径
-  staticPath: process.env.NODE_ENV === 'development' ? '/api/' : prePath,
+  staticPath: process.env.NODE_ENV === 'development' ? '/api/' : staticPath,
   // mock服务数据路径 
   // 由于要将项目和数据进行分离, 所以mock数据需要到外面的项目里取
-  mockPath: path.join(process.cwd(), '..', prePath),
+  mockPath: path.join(process.cwd(), '..', staticPath, local_dir),
 }
 const store = {
   // 是否缓存请求结果
