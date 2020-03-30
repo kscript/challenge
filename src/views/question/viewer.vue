@@ -1,13 +1,44 @@
 <template>
-  <v-viewer></v-viewer>
+  <el-main v-if="title">
+    <v-viewer :title="title" :question="question"></v-viewer>
+    <v-valine class="valine-container" :options="options"></v-valine>
+  </el-main>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
+import valine from '@/components/valine.vue'
 import viewer from '@/components/viewer.vue'
 @Component({
   components: {
+    'v-valine': valine,
     'v-viewer': viewer
   }
 })
-export default class QuestionViewer extends Vue {}
+export default class QuestionViewer extends Vue {
+  public title = ''
+  public question = {}
+  @Watch('$route.params', { immediate: false })
+  public onParamesChange() {
+    const params = this.$route.params
+    this.question = params.question
+    this.title = params.title
+    this.$nextTick(() => {
+      this.$bus.$emit('valineUpdate')
+    })
+  }
+  protected mounted() {
+    this.$nextTick(() => {
+      this.onParamesChange()
+    })
+  }
+}
 </script>
+<style lang="scss" scoped>
+.el-main {
+  padding-top: 0;
+}
+
+.valine-container {
+  margin-top: 100px;
+}
+</style>

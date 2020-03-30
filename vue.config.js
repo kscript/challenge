@@ -32,6 +32,8 @@ module.exports = {
         'js-yaml': 'jsyaml',
         'prismjs': 'Prism',
         'esprima': 'esprima',
+        "leancloud-storage": "AV",
+        "valine": "Valine",
         // 'vue-markdown': 'VueMarkdown',
         'unorm': 'unorm'
       }

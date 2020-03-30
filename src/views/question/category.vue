@@ -16,9 +16,7 @@
           </el-table-column>
         </el-table>
       </el-aside>
-      <el-main>
-        <v-viewer :title="title" :question="question"></v-viewer>
-      </el-main>
+      <router-view v-if="title"></router-view>
     </el-container>
   </el-main>
 </template>
@@ -31,13 +29,38 @@ import viewer from '@/components/viewer.vue'
   }
 })
 export default class Category extends Vue {
-  public category = []
+  public options: anyObject = {}
+  public categoryMap: anyObject = {}
+  public category: anyObject[] = []
   public question = {}
   public title = ''
   public rowKey = ''
+  public params: anyObject = {}
   public selectTitle(row: anyObject) {
     this.title = row.title
     this.question = row
+    const params = Object.assign({}, this.$route.params, {
+      title: row.title
+    })
+    // const params = {
+    //   category: this.$route.params.category,
+    //   title: this.title,
+    //   question: JSON.stringify(row)
+    // }
+    if (params.category !== this.params.category || params.title !== this.params.title) {
+      this.params = params
+      this.$router.push({
+        name: 'question_category_title',
+        params: Object.assign({}, params, {
+          question: this.question
+        })
+      })
+    }
+  }
+  public updateCategoryMap() {
+    this.category.forEach(item => {
+      this.categoryMap[item.title] = item
+    })
   }
   public tableRowClassName({ row }: { row: anyObject }) {
     return this.title === row.title ? 'selected' : ''
@@ -46,9 +69,11 @@ export default class Category extends Vue {
     const params = this.$route.params
     this.$store.dispatch('category', params.category).then((category) => {
       this.category = category
+      this.updateCategoryMap()
       if (category.length) {
-        this.question = category[0]
-        this.selectTitle(category[0])
+        const current = this.categoryMap[params.title] || category[0]
+        this.question = current
+        this.selectTitle(current)
       }
     })
   }

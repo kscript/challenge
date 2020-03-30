@@ -22,11 +22,13 @@ export default new Router({
           path: '/question/:category',
           name: 'question_category',
           component: r => require.ensure([], () => r(require('@/views/question/category.vue'))),
-        },
-        {
-          path: '/question/:category/:title',
-          name: 'question_category_title',
-          component: r => require.ensure([], () => r(require('@/views/question/viewer.vue'))),
+          children: [
+            {
+              path: '/question/:category/:title',
+              name: 'question_category_title',
+              component: r => require.ensure([], () => r(require('@/views/question/viewer.vue'))),
+            }
+          ]
         }
       ]
     },
