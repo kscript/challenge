@@ -28,7 +28,7 @@
   </el-header>
 </template>
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Watch } from 'vue-property-decorator'
 @Component({})
 export default class Header extends Vue {
   public activeMenu = ''
@@ -47,6 +47,12 @@ export default class Header extends Vue {
       name: 'article'
     }
   ]
+  @Watch('$route.name')
+  public onMenuNameChange() {
+    if (!this.$route.name || this.$route.name === 'index') {
+      this.activeMenu = ''
+    }
+  }
   public handleSelect(name: string) {
     if (this.activeMenu !== name || this.$route.name !== name) {
       this.$router.push({
@@ -69,7 +75,7 @@ export default class Header extends Vue {
         if (this.menuMap[nameStrs[0]]) {
           this.activeMenu = nameStrs[0]
         } else {
-          this.activeMenu = 'qustion'
+          this.activeMenu = ''
         }
       }
     }
