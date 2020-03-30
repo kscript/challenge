@@ -15,6 +15,7 @@ import viewer from '@/components/viewer.vue'
   }
 })
 export default class QuestionViewer extends Vue {
+  public params: anyObject = {}
   public title = ''
   public question = {}
   @Watch('$route.params', { immediate: false })
@@ -23,7 +24,10 @@ export default class QuestionViewer extends Vue {
     this.question = params.question
     this.title = params.title
     this.$nextTick(() => {
-      this.$bus.$emit('valineUpdate')
+      if (params.title !== this.params.title || params.category !== this.params.category) {
+        this.params = params
+        this.$bus.$emit('valineUpdate')
+      }
     })
   }
   protected mounted() {
