@@ -1,6 +1,6 @@
 <template>
   <el-main v-if="title">
-    <v-viewer :title="title" :question="question"></v-viewer>
+    <v-viewer :title="title" :content="content"></v-viewer>
     <v-valine class="valine-container" :options="options"></v-valine>
   </el-main>
 </template>
@@ -17,11 +17,11 @@ import viewer from '@/components/viewer.vue'
 export default class QuestionViewer extends Vue {
   public params: anyObject = {}
   public title = ''
-  public question = {}
+  public content = {}
   @Watch('$route.params', { immediate: false })
   public onParamesChange() {
     const params = this.$route.params
-    this.question = params.question
+    this.content = params.content
     this.title = params.title
     this.$nextTick(() => {
       if (params.title !== this.params.title || params.category !== this.params.category) {

@@ -26,7 +26,7 @@ export default class Viewer extends Vue {
       return {}
     }
   })
-  public question!: anyObject
+  public content!: anyObject
   @Prop({
     type: String,
     required: false,
@@ -40,7 +40,7 @@ export default class Viewer extends Vue {
   public onTitleChange(title: string, oldTitle: string) {
     if (title) {
       this.$store
-        .dispatch('question', [this.question])
+        .dispatch('question', [this.content])
         .then(source => {
           this.source = source
         })
