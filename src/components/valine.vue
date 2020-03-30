@@ -1,5 +1,5 @@
 <template>
-  <div class="valine-content" v-if="active === num && va">
+  <div class="valine-content">
     <div id="valine"></div>
   </div>
 </template>
@@ -11,8 +11,6 @@ import Valine from 'valine'
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 @Component({})
 export default class Viewer extends Vue {
-  public num = 0
-  public active = 0
   public va: anyObject | null = null
   public defaultOptions = {
       el: '#valine',
@@ -32,19 +30,21 @@ export default class Viewer extends Vue {
   })
   public options!: anyObject
   public createInstance() {
-    this.num = Math.floor(Math.random() * Math.random() * 1e9)
-    return Valine(Object.assign({}, this.defaultOptions, this.options))
+    const options = Object.assign({}, this.defaultOptions, this.options)
+    return new Valine(options)
   }
   public valineUpdate() {
     if (this.va && typeof this.va.setPath !== 'undefined') {
       this.va.setPath(location.pathname.replace(/index\.html?$/, ''))
     } else {
       // @ts-ignore
-      VA.setPath(location.pathname.replace(/index\.html?$/, ''))
+      if (window.VA) {
+        // @ts-ignore
+        window.VA.setPath(location.pathname.replace(/index\.html?$/, ''))
+      }
     }
     this.$nextTick(() => {
       this.va = this.createInstance()
-      this.active = this.num
     })
   }
   protected destroyed() {
