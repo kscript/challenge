@@ -48,7 +48,7 @@ export default class Header extends Vue {
     }
   ]
   public handleSelect(name: string) {
-    if (this.activeMenu !== name) {
+    if (this.activeMenu !== name || this.$route.name !== name) {
       this.$router.push({
         name
       })
@@ -60,17 +60,16 @@ export default class Header extends Vue {
       this.menuMap[item.name] = item
     })
   }
-  public setActiveMenu(index: string = '') {
-    if (index) {
-      this.activeMenu = index
+  public setActiveMenu(name: string = '') {
+    const nameStrs = (this.$route.name || '').split('_')
+    if (name) {
+      this.activeMenu = name
     } else {
-      const name = (this.$route.name || '').split('_')[0]
-      if (name) {
-        if (this.menuMap[name]) {
-          this.activeMenu = name
+      if (nameStrs[0]) {
+        if (this.menuMap[nameStrs[0]]) {
+          this.activeMenu = nameStrs[0]
         } else {
-          this.activeMenu = name
-          // this.activeMenu = (this.menu[0] || {}).name
+          this.activeMenu = 'qustion'
         }
       }
     }
