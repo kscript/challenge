@@ -23,7 +23,7 @@ export default class CategoryCommon extends Vue {
       return {
         mapKey: 'title',
         action: 'category',
-        contentRouteName: 'question_category_title',
+        contentRouteName: 'question_category_content',
         routeview: false
       }
     }

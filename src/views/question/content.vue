@@ -1,5 +1,5 @@
 <template>
-  <el-main v-if="title">
+  <el-main :class="'view-' + $route.name" v-if="title">
     <v-viewer :title="title" :content="content"></v-viewer>
     <v-valine class="valine-container" :options="options"></v-valine>
   </el-main>
@@ -14,7 +14,7 @@ import viewer from '@/components/viewer.vue'
     'v-viewer': viewer
   }
 })
-export default class QuestionViewer extends Vue {
+export default class QuestionContent extends Vue {
   public params: anyObject = {}
   public title = ''
   public content = {}

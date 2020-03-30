@@ -1,7 +1,6 @@
 <template>
-  <el-container direction="vertical">
-    <v-header />
-    <el-main class="view-index-main" v-if="$route.name==='question'">
+  <el-container :class="'view-' + $route.name">
+    <el-main v-if="$route.name === name">
       <el-row>
         <el-col :span="4" v-for="(vo, index) in categorys" :key="index">
           <router-link :to="{
@@ -16,7 +15,6 @@
       </el-row>
     </el-main>
     <router-view v-else></router-view>
-    <v-footer />
   </el-container>
 </template>
 
@@ -31,6 +29,7 @@ import footer from '@/components/footer.vue'
   }
 })
 export default class Question extends Vue {
+  public name = 'question'
   public categorys: string[][] = []
   public async getCategorys() {
     this.categorys = await this.$store.dispatch('categorys')

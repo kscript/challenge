@@ -11,39 +11,46 @@ export default new Router({
       path: '/',
       name: 'index',
       // redirect: '/question',
-      component: r => require.ensure([], () => r(require('@/views/index.vue')))
-    },
-    {
-      path: '/question',
-      name: 'question',
-      component: r => require.ensure([], () => r(require('@/views/question/index.vue'))),
+      component: r => require.ensure([], () => r(require('@/views/index.vue'))),
       children: [
         {
-          path: '/question/:category',
-          name: 'question_category',
-          component: r => require.ensure([], () => r(require('@/views/question/category.vue'))),
+          path: '/question',
+          name: 'question',
+          component: r => require.ensure([], () => r(require('@/views/question/index.vue'))),
           children: [
             {
-              path: '/question/:category/:title',
-              name: 'question_category_title',
-              component: r => require.ensure([], () => r(require('@/views/question/viewer.vue'))),
+              path: '/question/:category',
+              name: 'question_category',
+              component: r => require.ensure([], () => r(require('@/views/question/category.vue'))),
+              children: [
+                {
+                  path: '/question/:category/:title',
+                  name: 'question_category_content',
+                  component: r => require.ensure([], () => r(require('@/views/question/content.vue'))),
+                }
+              ]
             }
           ]
+        },
+        {
+          path: '/article',
+          name: 'article',
+          component: r => require.ensure([], () => r(require('@/views/article/index.vue'))),
+          children: [
+            {
+              path: '/article/:category/:title',
+              name: 'article_category_content',
+              component: r => require.ensure([], () => r(require('@/views/article/content.vue'))),
+            }
+          ]
+        },
+        {
+          path: '/knowledge',
+          name: 'knowledge',
+          component: r => require.ensure([], () => r(require('@/views/knowledge/index.vue'))),
+          children: [
+          ]
         }
-      ]
-    },
-    {
-      path: '/article',
-      name: 'article',
-      component: r => require.ensure([], () => r(require('@/views/article/index.vue'))),
-      children: [
-      ]
-    },
-    {
-      path: '/knowledge',
-      name: 'knowledge',
-      component: r => require.ensure([], () => r(require('@/views/knowledge/index.vue'))),
-      children: [
       ]
     }
   ]

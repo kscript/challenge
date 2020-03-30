@@ -32,7 +32,7 @@ import category from '@/components/category.vue'
     'v-category': category
   }
 })
-export default class Category extends Vue {
+export default class ArticleCategory extends Vue {
   public options: anyObject = {
     mapKey: 'title',
     action: 'category',

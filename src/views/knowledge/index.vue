@@ -1,9 +1,7 @@
 <template>
   <el-container direction="vertical">
-    <v-header />
     <el-main v-if="this.$route.name === name"></el-main>
     <router-view v-else></router-view>
-    <v-footer />
   </el-container>
 </template>
 
