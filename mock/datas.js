@@ -2,12 +2,13 @@ const runtime = require('../config/runtime')
 const fs = require('fs')
 const path = require('path')
 module.exports = {
-    question: {
+    md: {
         format(method, params, result) {
             let title = /\.md$/.test(params.title) ? params.title : `${params.title}.md`
+            let name = params.name
             let category = params.category
             return new Promise((resolve, reject) => {
-                fs.readFile(path.join(runtime.mockPath, '/question/', category, '/', title), (err, data) => {
+                fs.readFile(path.join(runtime.mockPath, name, category, title), (err, data) => {
                     err ? resolve('') : resolve(data.toString())
                 })
             })
@@ -17,9 +18,10 @@ module.exports = {
     },
     category: {
         format(method, params, result) {
+            let name = params.name
             let category = params.category
             return new Promise((resolve, reject) => {
-                fs.readFile(path.join(runtime.mockPath, '/question/', category + '.json'), (err, data) => {
+                fs.readFile(path.join(runtime.mockPath, name, category + '.json'), (err, data) => {
                     resolve(err ? [] : JSON.parse(data.toString()))
                 })
             })
@@ -29,7 +31,7 @@ module.exports = {
     categorys: {
         format(method, params, result) {
             return new Promise((resolve, reject) => {
-                fs.readFile(path.join(runtime.mockPath, '/question/', 'categorys.json'), (err, data) => {
+                fs.readFile(path.join(runtime.mockPath, params.name, 'categorys.json'), (err, data) => {
                     err ? resolve('') : resolve(data.toString())
                 })
             })

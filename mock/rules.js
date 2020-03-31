@@ -1,8 +1,8 @@
 module.exports = {
     // 匹配分类信息
-    '/question/categorys.json': 'categorys',
+    '/:name/categorys.json': 'categorys?name=:name',
     // 匹配某一分类
-    '/question/:category.json': 'category?category=:category',
+    '/:name/:category.json': 'category?name=:name&category=:category',
     // 匹配某一分类下的问题
-    '/question/:category/:title': 'question?category=:category&title=:title',
+    '/:name/:category/:title': 'md?name=:name&category=:category&title=:title',
 }
