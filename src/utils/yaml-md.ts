@@ -1,7 +1,7 @@
 // @ts-ignore
 import jsyaml from 'js-yaml'
 export const parseConfig = (yaml: string = '') => {
-  return jsyaml.load(yaml.slice(3, -3)) || {}
+  return jsyaml.load(yaml) || {}
 }
 export const extract = (content: string = '', type?: string) => {
   const strs = (' ' + content).split('---')

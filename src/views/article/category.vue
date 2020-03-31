@@ -1,28 +1,24 @@
 <template>
-  <el-main :class="'view-' + $route.name">
-    <el-container>
-      <v-category @changeKey="changeKey" :activeItem="title" :options="options">
-        <template slot-scope="scope">
-        <el-aside>
-          <el-table 
-            :data="scope.data.category"
-            :show-header="false"
-            :row-class-name="tableRowClassName"
-            @row-click="selectTitle"
-            v-show="scope.data.category.length"
-          >
-            <el-table-column>
-              <template slot-scope="scope">
-                {{ scope.row.title }}
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-aside>
-        <router-view v-if="scope.data.title"></router-view>
-        </template>
-      </v-category>
-    </el-container>
-  </el-main>
+  <v-category :class="'view-' + $route.name" @changeKey="changeKey" :activeItem="title" :options="options">
+    <template slot-scope="scope">
+    <el-aside>
+      <el-table 
+        :data="scope.data.category"
+        :show-header="false"
+        :row-class-name="tableRowClassName"
+        @row-click="selectTitle"
+        v-show="scope.data.category.length"
+      >
+        <el-table-column>
+          <template slot-scope="scope">
+            {{ scope.row.title }}
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-aside>
+    <router-view v-if="scope.data.title"></router-view>
+    </template>
+  </v-category>
 </template>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
@@ -33,9 +29,11 @@ import category from '@/components/category.vue'
   }
 })
 export default class ArticleCategory extends Vue {
+  public name = 'article'
   public options: anyObject = {
     mapKey: 'title',
-    action: 'category',
+    type: this.name,
+    action: `category`,
     contentRouteName: 'question_category_content',
     routeview: false
   }
@@ -52,11 +50,7 @@ export default class ArticleCategory extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-.el-container {
-  width: 1200px;
-  margin: 0 auto;
-  ::v-deep .el-table__row.selected {
-    background: #f5f7fa;
-  }
+::v-deep .el-table__row.selected {
+  background: #f5f7fa;
 }
 </style>

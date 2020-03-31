@@ -1,6 +1,15 @@
 export default class StoreData {
-  public question: anyObject<string> = {}
-  public categorys: string[][] = []
-  public categoryMap: anyObject = {}
+  public mdFiles: anyObject<string> = {}
+  public categorys: anyObject<string[][]> = {
+    question: [],
+    article: [],
+    knowledge: [],
+  }
+  public category: anyObject<anyObject<anyObject[]>> = {
+    question: {},
+    article: {},
+    knowledge: {},
+  }
   public constructor() {}
+  [prop: string]: any;
 }

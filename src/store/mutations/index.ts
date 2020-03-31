@@ -1,15 +1,27 @@
 import { MutationTree } from 'vuex'
 import StoreData from '@/store/state'
-
+// @ts-ignore
+import path from 'path'
 const mutations: MutationTree<StoreData> = {
-    question(state, { title, data }) {
-        state.question[title] = data
+    mdFiles(state, { path: path$1, data }) {
+        state.mdFiles[path.join(path$1)] = data
     },
-    categoryMap(state, {category, data}) {
-        state.categoryMap[category] = data
+    category(state, {
+        name,
+        category,
+        data
+    }) {
+        if (state.category.hasOwnProperty(name)) {
+            state.category[name][category] = data
+        }
     },
-    categorys(state, data) {
-        state.categorys = data
+    categorys(state, {
+        name,
+        data
+    }) {
+        if (state.categorys.hasOwnProperty(name)) {
+            state.categorys[name] = data
+        }
     }
 }
 export default mutations

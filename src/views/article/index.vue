@@ -11,6 +11,15 @@ import { Component, Vue } from 'vue-property-decorator'
 })
 export default class Article extends Vue {
   public name = 'article'
+  public categorys: anyObject[] = []
+  public async getCategorys() {
+    this.categorys = await this.$store.dispatch('categorys', {
+      name: this.name
+    })
+  }
+  protected mounted() {
+    this.getCategorys()
+  }
 }
 </script>
 <style lang="scss" scoped>

@@ -1,8 +1,10 @@
 <template>
-  <el-container>
-    <slot :data="slotData"></slot>
-    <router-view v-if="options.routeview && title"></router-view>
-  </el-container>
+  <el-main>
+    <el-container>
+      <slot :data="slotData"></slot>
+      <router-view v-if="options.routeview && title"></router-view>
+    </el-container>
+  </el-main>
 </template>
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
@@ -22,6 +24,7 @@ export default class CategoryCommon extends Vue {
     default() {
       return {
         mapKey: 'title',
+        name: 'question',
         action: 'category',
         contentRouteName: 'question_category_content',
         routeview: false
@@ -69,7 +72,10 @@ export default class CategoryCommon extends Vue {
   protected mounted() {
     this.$set(this.slotData, this.options.mapKey, '')
     const params = this.$route.params
-    this.$store.dispatch(this.options.action, params.category).then((category) => {
+    this.$store.dispatch(this.options.action, {
+      name: this.options.name,
+      category: params.category
+    }).then((category) => {
       this.category = category
       this.$set(this.slotData, 'category', category)
       this.updateCategoryMap()

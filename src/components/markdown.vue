@@ -40,6 +40,7 @@ export default class Markdown extends Vue {
   get sourceInfo() {
     const res = extract(this.source) as anyObject<string>
     const config = parseConfig(res.yaml)
+    console.log(config)
     return { ...res, config }
   }
   public rendered() {

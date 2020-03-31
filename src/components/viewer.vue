@@ -40,7 +40,9 @@ export default class Viewer extends Vue {
   public onTitleChange(title: string, oldTitle: string) {
     if (title) {
       this.$store
-        .dispatch('question', [this.content])
+        .dispatch('mdFiles', {
+          path: this.content.path
+        })
         .then(source => {
           this.source = source
         })
