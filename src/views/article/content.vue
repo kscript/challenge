@@ -2,11 +2,18 @@
   <el-main class="view-article_content" :class="'view-' + $route.name" v-if="title">
     <h1>{{title}}</h1>
     <v-viewer class="content-container" :title="title" :content="content"></v-viewer>
-    <ul>
-      <li v-for="vo in link" :key="vo.path" >
+    <ul class="links">
+      <li  v-for="(vo, index) in link" :key="vo.path" >
+        <span v-show="!index">
+          上一篇: 
+        </span>
+        <span v-show="index">
+          下一篇: 
+        </span>
         <el-link type="primary" v-if="vo.path" @click="toggleLink(vo)">
           {{vo.title}}
         </el-link>
+        <span v-else>已经是{{link[0].title ? '最后' : '第'}}一篇了</span>
       </li>
     </ul>
     <v-valine class="valine-container" :options="options"></v-valine>
@@ -60,16 +67,23 @@ export default class ArticleContent extends Vue {
 <style lang="scss" scoped>
 .view-article_content{
   padding-top: 20px;
-}
-h1 {
-  font-size: 28px;
-  line-height: 60px;
-  border-bottom: 1px dashed #eee;
+  h1 {
+    font-size: 28px;
+    line-height: 60px;
+    border-bottom: 1px dashed #eee;
+  }
+  .links {
+    overflow: hidden;
+    li {
+      padding: 5px;
+      // float: left;
+    }
+  }
 }
 .content-container {
   padding: 20px 0;
 }
 .valine-container {
-  padding-top: 100px;
+  padding-top: 50px;
 }
 </style>
