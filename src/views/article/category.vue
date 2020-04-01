@@ -23,7 +23,7 @@ export default class ArticleCategory extends Vue {
     contentRouteName: 'article_category_content',
     routeview: false
   }
-  public activeItem:anyObject = {}
+  public activeItem: anyObject = {}
   public title = ''
   public toggleLink(activeItem: anyObject) {
     this.activeItem = activeItem

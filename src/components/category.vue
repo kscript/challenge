@@ -63,7 +63,7 @@ export default class CategoryCommon extends Vue {
           content: row
         })
       }).catch(err => {})
-      let main = this.$refs.main as Vue
+      const main = this.$refs.main as Vue
       main.$el.scrollTop = 0
     }
   }

@@ -39,7 +39,6 @@ export default class QuestionCategory extends Vue {
   }
   public title = ''
   public tableRowClassName({ row }: { row: anyObject }) {
-    this.activeItem = row
     return this.title === row.title ? 'selected' : ''
   }
   public toggleLink(row: anyObject) {

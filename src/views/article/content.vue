@@ -48,7 +48,7 @@ export default class ArticleContent extends Vue {
       }
     })
   }
-  toggleLink(vo: anyObject) {
+  public toggleLink(vo: anyObject) {
     this.$emit('toggleLink', vo)
   }
   public async setToggleLink() {
