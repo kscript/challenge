@@ -38,9 +38,16 @@ export default new Router({
           component: r => require.ensure([], () => r(require('@/views/article/index.vue'))),
           children: [
             {
-              path: '/article/:category/:title',
-              name: 'article_category_content',
-              component: r => require.ensure([], () => r(require('@/views/article/content.vue'))),
+              path: '/article/:category',
+              name: 'article_category',
+              component: r => require.ensure([], () => r(require('@/views/article/category.vue'))),
+              children: [
+                {
+                  path: '/article/:category/:title',
+                  name: 'article_category_content',
+                  component: r => require.ensure([], () => r(require('@/views/article/content.vue'))),
+                }
+              ]
             }
           ]
         },

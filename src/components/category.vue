@@ -52,8 +52,8 @@ export default class CategoryCommon extends Vue {
     const params = Object.assign({}, this.$route.params, {
       [mapKey]: row[mapKey]
     })
-    this.$emit('changeKey', row[mapKey])
     this.$set(this.slotData, mapKey, row[mapKey])
+    this.$emit('changeKey', row[mapKey])
     if (params.category !== this.params.category || params[mapKey] !== this.params[mapKey]) {
       this.params = params
       this.$router.push({

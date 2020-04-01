@@ -22,6 +22,14 @@ const mutations: MutationTree<StoreData> = {
         if (state.categorys.hasOwnProperty(name)) {
             state.categorys[name] = data
         }
+    },
+    timeline(state, {
+        name,
+        data
+    }) {
+        if (state.timeline.hasOwnProperty(name)) {
+            state.timeline[name] = data
+        }
     }
 }
 export default mutations

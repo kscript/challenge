@@ -1,5 +1,5 @@
 <template>
-  <el-main :class="'view-' + $route.name" v-if="title">
+  <el-main class="view-question_content" v-if="title">
     <v-viewer :title="title" :content="content"></v-viewer>
     <v-valine class="valine-container" :options="options"></v-valine>
   </el-main>
@@ -38,11 +38,7 @@ export default class QuestionContent extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-.el-main {
-  padding-top: 0;
-}
-
-.valine-container {
-  margin-top: 100px;
+.el-main{
+  text-align: left;
 }
 </style>

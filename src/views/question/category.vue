@@ -1,5 +1,5 @@
 <template>
-  <v-category :class="'view-' + $route.name" @changeKey="changeKey" :activeItem="title" :options="options">
+  <v-category class="view-question_category" @changeKey="changeKey" :activeItem="title" :options="options">
     <template slot-scope="scope">
     <el-aside>
       <el-table 
@@ -29,10 +29,9 @@ import category from '@/components/category.vue'
   }
 })
 export default class QuestionCategory extends Vue {
-  public name = 'question'
   public options: anyObject = {
     mapKey: 'title',
-    type: this.name,
+    type: 'question',
     action: `category`,
     contentRouteName: 'question_category_content',
     routeview: false
@@ -50,6 +49,11 @@ export default class QuestionCategory extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+.view-question_category {
+  .el-aside, .el-main {
+    padding-top: 20px;
+  }
+}
 ::v-deep .el-table__row.selected {
   background: #f5f7fa;
 }

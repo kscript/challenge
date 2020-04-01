@@ -55,3 +55,9 @@ export default class Viewer extends Vue {
   }
 }
 </script>
+<style lang="scss" scoped>
+.valine-content {
+  padding-top: 100px;
+  max-width: 800px;
+}
+</style>

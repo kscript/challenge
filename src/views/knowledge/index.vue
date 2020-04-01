@@ -1,5 +1,5 @@
 <template>
-  <el-container direction="vertical">
+  <el-container class="view-knowledge" direction="vertical">
     <el-main v-if="this.$route.name === name"></el-main>
     <router-view v-else></router-view>
   </el-container>

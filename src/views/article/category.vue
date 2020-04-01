@@ -1,8 +1,9 @@
 <template>
-  <v-category :class="'view-' + $route.name" @changeKey="changeKey" :activeItem="title" :options="options">
+  <v-category  class="view-article_category"  @changeKey="changeKey" :activeItem="title" :options="options">
     <template slot-scope="scope">
-    <el-aside>
-      <el-table 
+     <el-aside width="0px">
+       <!-- 
+     <el-table 
         :data="scope.data.category"
         :show-header="false"
         :row-class-name="tableRowClassName"
@@ -14,7 +15,7 @@
             {{ scope.row.title }}
           </template>
         </el-table-column>
-      </el-table>
+      </el-table> -->
     </el-aside>
     <router-view v-if="scope.data.title"></router-view>
     </template>
@@ -29,12 +30,11 @@ import category from '@/components/category.vue'
   }
 })
 export default class ArticleCategory extends Vue {
-  public name = 'article'
   public options: anyObject = {
     mapKey: 'title',
-    type: this.name,
+    type: 'article',
     action: `category`,
-    contentRouteName: 'question_category_content',
+    contentRouteName: 'article_category_content',
     routeview: false
   }
   public title = ''

@@ -59,6 +59,20 @@ const actions: ActionTree<StoreData, StoreData> = {
       commit('categorys', { name, data })
       return data
     })
+  },
+  // 某一栏目的时间线 知道栏目即可
+  timeline({ state, commit }, { name = 'question' }) {
+    const timeline: anyObject[] = state.timeline[name]
+    if (cacheable('timeline') && timeline && timeline.length) {
+      return timeline
+    }
+    return axios({
+      url: `/${name}/list.json`,
+      method: 'get'
+    }).then(({ data }) => {
+      commit('timeline', { name, data })
+      return data
+    })
   }
 }
 export default actions

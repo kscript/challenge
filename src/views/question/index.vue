@@ -1,12 +1,12 @@
 <template>
-  <el-container :class="'view-' + $route.name">
+  <el-container class="view-question">
     <el-main v-if="$route.name === name">
       <el-row>
         <el-col :span="4" v-for="(vo, index) in categorys" :key="index">
           <router-link :to="{
             path: '/question/' + vo[0] + '/'
           }">
-            <section>
+            <section class="text-center">
               <h3 :data-content="vo[0]">{{ vo[0] }}</h3>
               <p>{{ vo[1] || '' }}</p>
             </section>
@@ -22,22 +22,23 @@
 import { Component, Vue } from 'vue-property-decorator'
 import header from '@/components/header.vue'
 import footer from '@/components/footer.vue'
+
 @Component({
   components: {
     'v-header': header,
-    'v-footer': footer,
+    'v-footer': footer
   }
 })
 export default class Question extends Vue {
   public name = 'question'
   public categorys: string[][] = []
   public async getCategorys() {
-    this.categorys = await this.$store.dispatch('categorys', {
+    return this.categorys = await this.$store.dispatch('categorys', {
       name: this.name
     })
   }
-  protected mounted() {
-    this.getCategorys()
+  protected async mounted() {
+    await this.getCategorys()
   }
 }
 </script>
@@ -47,9 +48,9 @@ export default class Question extends Vue {
 }
 
 .el-main {
-  padding: 50px;
   .el-row{
     width: 1200px;
+    padding-top: 20px;
     margin: 0 auto;
     .el-col {
       padding: 10px 12px;

@@ -1,6 +1,7 @@
 <template>
-  <el-main :class="'view-' + $route.name" v-if="title">
-    <v-viewer :title="title" :content="content"></v-viewer>
+  <el-main class="view-article_content" :class="'view-' + $route.name" v-if="title">
+    <h1>{{title}}</h1>
+    <v-viewer class="content-container" :title="title" :content="content"></v-viewer>
     <v-valine class="valine-container" :options="options"></v-valine>
   </el-main>
 </template>
@@ -38,11 +39,18 @@ export default class ArticleContent extends Vue {
 }
 </script>
 <style lang="scss" scoped>
-.el-main {
-  padding-top: 0;
+.view-article_content{
+  padding-top: 20px;
 }
-
+h1 {
+  font-size: 28px;
+  line-height: 60px;
+  border-bottom: 1px dashed #eee;
+}
+.content-container {
+  padding: 20px 0;
+}
 .valine-container {
-  margin-top: 100px;
+  padding-top: 100px;
 }
 </style>

@@ -5,6 +5,11 @@ export default class StoreData {
     article: [],
     knowledge: [],
   }
+  public timeline: anyObject<string[][]> = {
+    question: [],
+    article: [],
+    knowledge: [],
+  }
   public category: anyObject<anyObject<anyObject[]>> = {
     question: {},
     article: {},

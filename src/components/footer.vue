@@ -11,8 +11,8 @@ export default class Footer extends Vue {}
 </script>
 <style lang="scss" scoped>
 .el-footer{
-  height: 60px;
   line-height: 60px;
+  border-top: 1px solid #ddd;
   // color: $footer_color;
   // background: $footer_bg;
   a{
