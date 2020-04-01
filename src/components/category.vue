@@ -61,7 +61,7 @@ export default class CategoryCommon extends Vue {
         params: Object.assign({}, params, {
           content: row
         })
-      })
+      }).catch(err => {})
     }
   }
   public updateCategoryMap() {
