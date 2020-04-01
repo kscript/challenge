@@ -1,6 +1,6 @@
 <template>
-  <el-container class="view-article" direction="vertical">
-    <el-main class="fix-conatianer" v-if="this.$route.name === name">
+  <el-main class="view-article" direction="vertical">
+    <div class="fix-conatianer" v-if="this.$route.name === name">
       <el-timeline>
         <el-timeline-item  v-for="vo in timeline" :key="vo.title" :timestamp="formatTime(vo.time)" hide-timestamp placement="top">
           <router-link :to="{
@@ -9,7 +9,7 @@
             name: 'article',
             title: vo.title,
             category: vo.category[0],
-            content: JSON.stringify(vo)
+            content: vo
           }
         }">
           <el-card @click="viewContent(vo)">
@@ -19,9 +19,9 @@
           </router-link>
         </el-timeline-item>
       </el-timeline>
-    </el-main>
+    </div>
     <router-view v-else></router-view>
-  </el-container>
+  </el-main>
 </template>
 
 <script lang="ts">
@@ -72,10 +72,7 @@ export default class Article extends Vue {
 .el-container{
   height: 100%;
 }
-.el-main {
-  height: 100%;
-  // overflow: unset;
-}
+
 .el-timeline {
   max-width: 720px;
   padding: 30px 0;

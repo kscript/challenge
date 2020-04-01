@@ -32,7 +32,7 @@ import category from '@/components/category.vue'
 export default class ArticleCategory extends Vue {
   public options: anyObject = {
     mapKey: 'title',
-    type: 'article',
+    name: 'article',
     action: `category`,
     contentRouteName: 'article_category_content',
     routeview: false
