@@ -33,7 +33,7 @@ export default class Viewer extends Vue {
     const options = Object.assign({}, this.defaultOptions, this.options)
     return new Valine(options)
   }
-  public valineUpdate() {
+  public valineUpdate(done?: Function) {
     if (this.va && typeof this.va.setPath !== 'undefined') {
       this.va.setPath(location.pathname.replace(/index\.html?$/, ''))
     } else {
@@ -45,6 +45,7 @@ export default class Viewer extends Vue {
     }
     this.$nextTick(() => {
       this.va = this.createInstance()
+      done && done()
     })
   }
   protected destroyed() {

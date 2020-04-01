@@ -2,6 +2,13 @@
   <el-main class="view-article_content" :class="'view-' + $route.name" v-if="title">
     <h1>{{title}}</h1>
     <v-viewer class="content-container" :title="title" :content="content"></v-viewer>
+    <ul>
+      <li v-for="vo in link" :key="vo.path" >
+        <el-link type="primary" v-if="vo.path" @click="toggleLink(vo)">
+          {{vo.title}}
+        </el-link>
+      </li>
+    </ul>
     <v-valine class="valine-container" :options="options"></v-valine>
   </el-main>
 </template>
@@ -18,17 +25,29 @@ import viewer from '@/components/viewer.vue'
 export default class ArticleContent extends Vue {
   public params: anyObject = {}
   public title = ''
-  public content = {}
+  public content: anyObject = {}
+  public link: string[] = []
   @Watch('$route.params', { immediate: false })
   public onParamesChange() {
-    const params = this.$route.params
+    const params: anyObject = this.$route.params
     this.content = params.content
     this.title = params.title
     this.$nextTick(() => {
       if (params.title !== this.params.title || params.category !== this.params.category) {
         this.params = params
-        this.$bus.$emit('valineUpdate')
+        this.$bus.$emit('valineUpdate', () => {
+          this.setToggleLink()
+        })
       }
+    })
+  }
+  toggleLink(vo: anyObject) {
+    this.$emit('toggleLink', vo)
+  }
+  public async setToggleLink() {
+    this.link = await this.$store.dispatch('toggleLinks', {
+      name: 'article',
+      path: this.content.path
     })
   }
   protected mounted() {

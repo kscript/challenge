@@ -1,4 +1,6 @@
 export default class StoreData {
+  public pagenos: anyObject<anyObject<number>> = {}
+  public toggleLinks: anyObject = {}
   public mdFiles: anyObject<string> = {}
   public categorys: anyObject<string[][]> = {
     question: [],

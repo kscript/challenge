@@ -1,12 +1,13 @@
 <template>
-  <el-main>
+  <el-main ref="main">
     <el-container>
       <slot :data="slotData"></slot>
-      <router-view v-if="options.routeview && title"></router-view>
+      <router-view v-if="options.routeview && activeItem.title"></router-view>
     </el-container>
   </el-main>
 </template>
 <script lang="ts">
+
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 @Component({
 })
@@ -33,27 +34,27 @@ export default class CategoryCommon extends Vue {
   })
   public options!: anyObject
   @Prop({
-    type: String,
+    type: Object,
     required: false,
-    default: ''
+    default: {}
   })
-  public activeItem!: string
-  @Watch('activeItem', { immediate: false })
-  public onActiveItemChange() {
+  public activeItem!: anyObject
+  @Watch('activeItem', { deep: true, immediate: false })
+  public async onActiveItemChange() {
     if (
-      this.categoryMap[this.activeItem]
+      this.activeItem.title
     ) {
-      this.selectItem(this.categoryMap[this.activeItem])
+      await this.selectItem(this.categoryMap[this.activeItem.title] || this.activeItem)
     }
   }
-  public selectItem(row: anyObject) {
+  public async selectItem(row: anyObject) {
     const mapKey = this.options.mapKey
     this.title = row[mapKey]
     const params = Object.assign({}, this.$route.params, {
       [mapKey]: row[mapKey]
     })
     this.$set(this.slotData, mapKey, row[mapKey])
-    this.$emit('changeKey', row[mapKey])
+    this.$emit('toggleLink', row)
     if (params.category !== this.params.category || params[mapKey] !== this.params[mapKey]) {
       this.params = params
       this.$router.push({
@@ -62,6 +63,8 @@ export default class CategoryCommon extends Vue {
           content: row
         })
       }).catch(err => {})
+      let main = this.$refs.main as Vue
+      main.$el.scrollTop = 0
     }
   }
   public updateCategoryMap() {

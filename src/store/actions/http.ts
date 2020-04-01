@@ -60,8 +60,16 @@ const actions: ActionTree<StoreData, StoreData> = {
       return data
     })
   },
+  toggleLinks({ state }, { name = 'question', path: fullPath = ''}) {
+    const lists = state.toggleLinks[name] || {}
+    if (lists[fullPath]) {
+      return lists[fullPath]
+    }
+    return []
+    // 预留 如果没有找到next, 那么list可能做了分页, 这时候需要请求下一页
+  },
   // 某一栏目的时间线 知道栏目即可
-  timeline({ state, commit }, { name = 'question' }) {
+  timeline({ state, commit }, { name = 'question', pageno = 1 }) {
     const timeline: anyObject[] = state.timeline[name]
     if (cacheable('timeline') && timeline && timeline.length) {
       return timeline
@@ -71,6 +79,15 @@ const actions: ActionTree<StoreData, StoreData> = {
       method: 'get'
     }).then(({ data }) => {
       commit('timeline', { name, data })
+      const links: anyObject = {}
+      data.map((item: anyObject, index: number) => {
+        links[item.path] = [
+          data[index - 1] || {},
+          data[index + 1] || {}
+        ]
+      })
+      commit('pagenos', { name, pageno })
+      commit('toggleLinks', { name, links })
       return data
     })
   }

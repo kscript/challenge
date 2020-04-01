@@ -1,12 +1,12 @@
 <template>
-  <v-category class="view-question_category" @changeKey="changeKey" :activeItem="title" :options="options">
+  <v-category class="view-question_category" @toggleLink="toggleLink" :activeItem="activeItem" :options="options">
     <template slot-scope="scope">
     <el-aside>
       <el-table 
         :data="scope.data.category"
         :show-header="false"
         :row-class-name="tableRowClassName"
-        @row-click="selectTitle"
+        @row-click="toggleLink"
         v-show="scope.data.category.length"
       >
         <el-table-column>
@@ -29,6 +29,7 @@ import category from '@/components/category.vue'
   }
 })
 export default class QuestionCategory extends Vue {
+  public activeItem: anyObject = {}
   public options: anyObject = {
     mapKey: 'title',
     type: 'question',
@@ -38,13 +39,12 @@ export default class QuestionCategory extends Vue {
   }
   public title = ''
   public tableRowClassName({ row }: { row: anyObject }) {
+    this.activeItem = row
     return this.title === row.title ? 'selected' : ''
   }
-  public selectTitle(row: anyObject) {
+  public toggleLink(row: anyObject) {
+    this.activeItem = row
     this.title = row.title
-  }
-  public changeKey(title: string) {
-    this.title = title
   }
 }
 </script>

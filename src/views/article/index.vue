@@ -1,5 +1,5 @@
 <template>
-  <el-main class="view-article" direction="vertical">
+  <el-container class="view-article" direction="vertical">
     <div class="fix-conatianer" v-if="this.$route.name === name">
       <el-timeline>
         <el-timeline-item  v-for="vo in timeline" :key="vo.title" :timestamp="formatTime(vo.time)" hide-timestamp placement="top">
@@ -20,8 +20,8 @@
         </el-timeline-item>
       </el-timeline>
     </div>
-    <router-view v-else></router-view>
-  </el-main>
+    <router-view v-else-if="isInit"></router-view>
+  </el-container>
 </template>
 
 <script lang="ts">
@@ -31,6 +31,7 @@ import { Component, Vue } from 'vue-property-decorator'
 export default class Article extends Vue {
   public name = 'article'
   public timeline = []
+  public isInit = false
   public categorys: anyObject[] = []
   public formatTime(date: number) {
     const time = new Date(date)
@@ -58,13 +59,15 @@ export default class Article extends Vue {
     })
   }
   public async getTimeline() {
-    return this.timeline = await this.$store.dispatch('timeline', {
+    this.timeline = await this.$store.dispatch('timeline', {
       name: this.name
     })
+    return this.timeline
   }
   protected async mounted() {
     await this.getTimeline()
     await this.getCategorys()
+    this.isInit = true
   }
 }
 </script>

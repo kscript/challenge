@@ -23,6 +23,12 @@ const mutations: MutationTree<StoreData> = {
             state.categorys[name] = data
         }
     },
+    pagenos(state, { name, pageno }) {
+        state.pagenos[name] = pageno
+    },
+    toggleLinks(state, { name, links }) {
+        state.toggleLinks[name] = links
+    },
     timeline(state, {
         name,
         data
