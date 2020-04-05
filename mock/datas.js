@@ -9,7 +9,12 @@ module.exports = {
             let category = params.category
             return new Promise((resolve, reject) => {
                 fs.readFile(path.join(runtime.mockPath, name, category, title), (err, data) => {
-                    err ? resolve('') : resolve(data.toString())
+                    if (err) {
+                        resolve('')
+                        console.log(err)
+                    } else {
+                        resolve(data.toString())
+                    }
                 })
             })
         },
@@ -21,8 +26,29 @@ module.exports = {
             let name = params.name
             let category = params.category
             return new Promise((resolve, reject) => {
-                fs.readFile(path.join(runtime.mockPath, name, category + '.json'), (err, data) => {
-                    resolve(err ? [] : JSON.parse(data.toString()))
+                fs.readFile(path.join(runtime.mockPath, name, category, 'category.json'), (err, data) => {
+                    if (err) {
+                        resolve([])
+                        console.log(err)
+                    } else {
+                        resolve(data.toString())
+                    }
+                })
+            })
+        },
+        get: {}
+    },
+    timeline: {
+        format(method, params, result) {
+            let name = params.name
+            return new Promise((resolve, reject) => {
+                fs.readFile(path.join(runtime.mockPath, name, 'timeline.json'), (err, data) => {
+                    if (err) {
+                        resolve([])
+                        console.log(err)
+                    } else {
+                        resolve(data.toString())
+                    }
                 })
             })
         },
@@ -32,7 +58,12 @@ module.exports = {
         format(method, params, result) {
             return new Promise((resolve, reject) => {
                 fs.readFile(path.join(runtime.mockPath, params.name, 'categorys.json'), (err, data) => {
-                    err ? resolve('') : resolve(data.toString())
+                    if (err) {
+                        resolve('')
+                        console.log(err)
+                    } else {
+                        resolve(data.toString())
+                    }
                 })
             })
         },

@@ -39,7 +39,7 @@ const actions: ActionTree<StoreData, StoreData> = {
       return categoryMap[category]
     }
     return axios({
-      url: `/${name}/${category}.json`,
+      url: `/${name}/${category}/category.json`,
       method: 'get'
     }).then(({ data }) => {
       commit('category', { name, category, data })
@@ -75,7 +75,7 @@ const actions: ActionTree<StoreData, StoreData> = {
       return timeline
     }
     return axios({
-      url: `/${name}/list.json`,
+      url: `/${name}/timeline.json`,
       method: 'get'
     }).then(({ data }) => {
       commit('timeline', { name, data })
