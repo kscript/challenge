@@ -1,5 +1,5 @@
 <template>
-  <el-main class="view-article_content" :class="'view-' + $route.name" v-if="title">
+  <el-main class="view-article_content" v-if="title">
     <h1>{{title}}</h1>
     <v-viewer class="content-container" :title="title" :content="content"></v-viewer>
     <ul class="links">
@@ -76,7 +76,6 @@ export default class ArticleContent extends Vue {
     overflow: hidden;
     li {
       padding: 5px;
-      // float: left;
     }
   }
 }

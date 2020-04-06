@@ -12,7 +12,7 @@
 <script lang="ts">
 import 'github-markdown-css'
 import 'prismjs'
-import 'prismjs/themes/prism.css'
+import 'prismjs/themes/prism-tomorrow.css'
 import { extract, parseConfig } from '@/utils/yaml-md'
 import { Component, Vue, Prop } from 'vue-property-decorator'
 // @ts-ignore

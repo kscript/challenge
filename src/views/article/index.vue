@@ -1,6 +1,7 @@
 <template>
   <el-container class="view-article" direction="vertical">
-    <div class="fix-container" v-if="this.$route.name === name">
+    <el-main v-if="this.$route.name === name">
+    <div class="fix-container">
       <el-timeline>
         <el-timeline-item  v-for="vo in timeline" :key="vo.title" :timestamp="vo.time" hide-timestamp placement="top">
           <router-link :to="{
@@ -20,6 +21,10 @@
         </el-timeline-item>
       </el-timeline>
     </div>
+    <el-backtop target=".view-article .el-main" :bottom="100">
+      <i class="icon el-icon-arrow-up"></i>
+    </el-backtop>
+    </el-main>
     <router-view v-else-if="isInit"></router-view>
   </el-container>
 </template>

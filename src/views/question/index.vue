@@ -13,6 +13,9 @@
           </router-link>
         </el-col>
       </el-row>
+      <el-backtop target=".view-question .el-main" :bottom="100">
+        <i class="icon el-icon-arrow-up"></i>
+      </el-backtop>
     </el-main>
     <router-view v-else></router-view>
   </el-container>

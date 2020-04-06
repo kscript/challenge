@@ -1,9 +1,10 @@
 <template>
   <v-category class="view-article_category"  @toggleLink="toggleLink" :activeItem="activeItem" :options="options">
     <template slot-scope="scope">
-     <el-aside width="0px">
-    </el-aside>
     <router-view v-if="scope.data.title" @toggleLink="toggleLink"></router-view>
+    <el-backtop target=".view-article_category" :bottom="100">
+      <i class="icon el-icon-arrow-up"></i>
+    </el-backtop>
     </template>
   </v-category>
 </template>

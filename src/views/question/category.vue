@@ -17,6 +17,9 @@
       </el-table>
     </el-aside>
     <router-view v-if="scope.data.title"></router-view>
+    <el-backtop target=".view-question_category" :bottom="100">
+      <i class="icon el-icon-arrow-up"></i>
+    </el-backtop>
     </template>
   </v-category>
 </template>

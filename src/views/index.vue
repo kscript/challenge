@@ -45,6 +45,14 @@
             </template>
           </el-table-column>
         </el-table>
+        <el-pagination
+          class="text-right"
+          small
+          hide-on-single-page
+          :page-size="pages.size"
+          :layout="pages.layout"
+          :total="pages.total">
+        </el-pagination>
       </el-card>
       </div>
     </el-main>
@@ -69,11 +77,18 @@ export default class Index extends Vue {
   public name = 'index'
   public questions = []
   public articles = []
+  public pages: anyObject = {
+    size: 10,
+    total: 0,
+    layout: 'prev, pager, next'
+  }
   @Watch('$route.name', { immediate: true })
   public async routeNameChange() {
     if (this.$route.name === this.name) {
       this.questions = await this.getQuestionList()
       this.articles = await this.getArticleList()
+      // TODO 后期要在列表再包装上一层, 不然很多信息没办法取
+      this.pages.total = 10
     }
   }
   public async getQuestionList() {
@@ -130,7 +145,7 @@ export default class Index extends Vue {
   }
   ::v-deep .el-card{
     border: 0;
-    padding: 0 15px;
+    padding: 0 15px 15px;
     display: table-cell;
     &.question-list {
       width: 320px;
@@ -155,9 +170,9 @@ export default class Index extends Vue {
         border-bottom: 0;
       }
     }
-    .cell {
-      padding: 0 5px;
-    }
+    // .cell {
+    //   padding: 0 5px;
+    // }
   }
 }
 
