@@ -51,6 +51,8 @@ export default class Header extends Vue {
   public onMenuNameChange() {
     if (!this.$route.name || this.$route.name === 'index') {
       this.activeMenu = ''
+    } else {
+      this.activeMenu = this.$route.name.split('_')[0]
     }
   }
   public handleSelect(name: string) {
