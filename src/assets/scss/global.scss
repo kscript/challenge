@@ -1,7 +1,7 @@
 .el-main{
   padding-top: 0;
 }
-.fix-conatianer {
+.fix-container {
   width: 1200px;
   margin: 0 auto;
 }
@@ -17,6 +17,9 @@
 .mt50{
   margin-top: 50px;
 }
-ol li{
+.markdown-body li {
+  list-style: disc;
+}
+.markdown-body ol li{
   list-style: decimal;
 }

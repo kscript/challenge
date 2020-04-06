@@ -20,8 +20,8 @@ export default class QuestionContent extends Vue {
   public content = {}
   @Watch('$route.params', { immediate: false })
   public onParamesChange() {
-    const params = this.$route.params
-    this.content = params.content
+    const params: anyObject = this.$route.params
+    this.content = params.content instanceof Object ? params.content : JSON.parse(params.content)
     this.title = params.title
     this.$nextTick(() => {
       if (params.title !== this.params.title || params.category !== this.params.category) {

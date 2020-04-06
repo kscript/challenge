@@ -37,7 +37,7 @@ export default class ArticleContent extends Vue {
   @Watch('$route.params', { immediate: false })
   public onParamesChange() {
     const params: anyObject = this.$route.params
-    this.content = params.content
+    this.content = params.content instanceof Object ? params.content : JSON.parse(params.content)
     this.title = params.title
     this.$nextTick(() => {
       if (params.title !== this.params.title || params.category !== this.params.category) {

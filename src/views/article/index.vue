@@ -1,8 +1,8 @@
 <template>
   <el-container class="view-article" direction="vertical">
-    <div class="fix-conatianer" v-if="this.$route.name === name">
+    <div class="fix-container" v-if="this.$route.name === name">
       <el-timeline>
-        <el-timeline-item  v-for="vo in timeline" :key="vo.title" :timestamp="formatTime(vo.time)" hide-timestamp placement="top">
+        <el-timeline-item  v-for="vo in timeline" :key="vo.title" :timestamp="vo.time" hide-timestamp placement="top">
           <router-link :to="{
           name: 'article_category_content',
           params: {
@@ -14,7 +14,7 @@
         }">
           <el-card @click="viewContent(vo)">
             <h4>{{vo.title}}</h4>
-            <p>{{formatFullTime(vo.time, true)}}</p>
+            <p>{{vo.time}}</p>
           </el-card>
           </router-link>
         </el-timeline-item>
@@ -40,18 +40,6 @@ export default class Article extends Vue {
       time.getMonth() + 1,
       time.getDate()
     ].join('/')
-  }
-  public formatFullTime(date: number) {
-    const time = new Date(date)
-    return [
-      time.getFullYear(),
-      time.getMonth() + 1,
-      time.getDate()
-    ].join('-') + ' ' + [
-      time.getHours(),
-      time.getMinutes(),
-      time.getSeconds()
-    ].join(':')
   }
   public async getCategorys() {
     this.categorys = await this.$store.dispatch('categorys', {
