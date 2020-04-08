@@ -6,7 +6,7 @@ export const parseConfig = (yaml: string = '') => {
 export const extract = (content: string = '', type?: string) => {
   const strs = (' ' + content).split('---')
   const resObj: anyObject<string> = {
-    markdown: strs.slice(0, 1).concat(strs.slice(2)).join('').slice(1),
+    markdown: strs.slice(0, 1).concat(strs.slice(2).join('---')).join('').slice(1),
     yaml: strs[1] || ''
   }
   return type ? resObj[type] || resObj.markdown : resObj
