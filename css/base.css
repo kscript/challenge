@@ -46,3 +46,9 @@ html,body {
   padding: 20px 20px!important;
   width: 800px;
 }
+.markdown-body a{
+  color: #409EFF!important;
+}
+.markdown-body hr{
+  height: 1px!important;
+}
