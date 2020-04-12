@@ -1,14 +1,45 @@
 <template>
-  <v-markdown
-    class="md-editor-preview markdown-body"
-    ref="markdown"
-    toc
-    toc-anchor-link-symbol
-    :source="source"
-    :watches="watches"
-  ></v-markdown>
+  <div>
+    <h1>
+      {{title}}
+    </h1>
+    <div class="base-info">
+      <span>
+        最后编辑时间: {{content.time}}
+      </span>
+      <span :id="'/' + runtime.repository + $route.path" class="leancloud_visitors">
+        <em class="post-meta-item-text">阅读量: </em>
+        <i class="leancloud-visitors-count">-</i>
+      </span>
+      <template v-if="categories.length">
+        <el-divider direction="vertical">
+        </el-divider>
+        <span>
+          分类: 
+          <el-tag size="mini" type="info" v-for="(vo, index) in categories" :key="index">
+            {{vo}}
+          </el-tag>
+        </span>
+      </template>
+    </div>
+    <v-markdown
+      class="md-editor-preview markdown-body"
+      ref="markdown"
+      toc
+      toc-anchor-link-symbol
+      :source="source"
+      :watches="watches"
+    ></v-markdown>
+    <el-divider>
+    <p class="text-right">
+      <el-link type="primary" :href="runtime.remotePath + content.path.replace(/\\/g, '/')" target="editContent">参与编辑此页 <i class="iconfont icon-github"></i></el-link>
+    </p>
+    </el-divider>
+  </div>
 </template>
 <script lang="ts">
+import { runtime } from '@/config'
+import { extract, parseConfig } from '@/utils/yaml-md'
 import markdown from './markdown.vue'
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 @Component({
@@ -18,6 +49,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 })
 export default class Viewer extends Vue {
   public source: string = ''
+  public runtime = runtime
   public watches = ['source', 'show', 'toc']
   @Prop({
     type: Object,
@@ -48,6 +80,14 @@ export default class Viewer extends Vue {
         })
     }
   }
+  get info() {
+    const res = extract(this.source) as anyObject
+    return parseConfig(res.yaml)
+  }
+  get categories() {
+    const categories = this.info.categories || []
+    return typeof categories === 'string' ? [categories] : categories
+  }
   protected mounted() {
     this.$bus.$on('markdownsource', (source: string) => {
       this.source = source
@@ -62,5 +102,22 @@ export default class Viewer extends Vue {
 .page-markdown {
   width: $markdown_width;
   margin: 0 auto;
+}
+h1 {
+  font-size: 28px;
+  line-height: 60px;
+  border-bottom: 1px dashed #eee;
+}
+.base-info {
+  padding: 10px 0;
+  line-height: 22px;
+  font-size: 13px;
+  color: #ccc;
+  .el-tag{
+    margin-left: 5px;
+  }
+}
+.el-divider.el-divider--horizontal{
+  margin: 30px 0;
 }
 </style>

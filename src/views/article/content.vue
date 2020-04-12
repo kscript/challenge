@@ -1,14 +1,6 @@
 <template>
   <el-main class="view-article_content" v-if="title">
-    <h1>
-      {{title}}
-    </h1>
     <v-viewer class="content-container" :title="title" :content="content"></v-viewer>
-    <el-divider>
-    <p class="text-right">
-      <el-link type="primary" @click="editContent" :href="runtime.remotePath + content.path.replace(/\\/g, '/')" target="editContent">参与编辑此页 <i class="iconfont icon-github"></i></el-link>
-    </p>
-    </el-divider>
     <ul class="links">
       <li  v-for="(vo, index) in link" :key="vo.path" >
         <span v-show="!index">
@@ -27,9 +19,6 @@
   </el-main>
 </template>
 <script lang="ts">
-// @ts-ignore
-import path from 'path'
-import { runtime } from '@/config'
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import valine from '@/components/valine.vue'
 import viewer from '@/components/viewer.vue'
@@ -40,7 +29,6 @@ import viewer from '@/components/viewer.vue'
   }
 })
 export default class ArticleContent extends Vue {
-  public runtime = runtime
   public params: anyObject = {}
   public title = ''
   public content: anyObject = {}
@@ -68,10 +56,6 @@ export default class ArticleContent extends Vue {
       path: this.content.path
     })
   }
-  public editContent() {
-    // console.log(this, runtime)
-    window.open(runtime.remotePath + this.content.path, 'editContent')
-  }
   protected mounted() {
     this.$nextTick(() => {
       this.onParamesChange()
@@ -81,12 +65,6 @@ export default class ArticleContent extends Vue {
 </script>
 <style lang="scss" scoped>
 .view-article_content{
-  padding-top: 20px;
-  h1 {
-    font-size: 28px;
-    line-height: 60px;
-    border-bottom: 1px dashed #eee;
-  }
   .links {
     overflow: hidden;
     li {

@@ -18,6 +18,7 @@ export default class Viewer extends Vue {
       appKey: 'lhVI2ym7wgSKo6O7AYGm8wzf',
       notify: false,
       verify: false,
+      visitor: true,
       avatar: 'mp',
       placeholder: '发表评论'
     }
@@ -60,7 +61,10 @@ export default class Viewer extends Vue {
 </script>
 <style lang="scss" scoped>
 .valine-content {
-  padding-top: 100px;
+  padding-top: 50px;
   max-width: 800px;
+  ::v-deep .vsys {
+    display: none!important;
+  }
 }
 </style>

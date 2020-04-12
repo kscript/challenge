@@ -52,8 +52,11 @@ export default class QuestionCategory extends Vue {
 </script>
 <style lang="scss" scoped>
 .view-question_category {
-  .el-aside, .el-main {
-    padding-top: 20px;
+  .el-aside {
+    padding-top: 24px;
+  }
+  .el-main {
+    padding-top: 10px;
   }
 }
 ::v-deep .el-table__row.selected {

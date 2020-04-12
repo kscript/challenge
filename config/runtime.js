@@ -9,6 +9,7 @@ const remote = {
   dir: 'public',
 }
 const base = {
+  repository: 'challenge',
   // 静态数据存放路径
   staticPath: process.env.NODE_ENV === 'development' ? '/api/' : staticPath,
   // mock服务数据路径 
