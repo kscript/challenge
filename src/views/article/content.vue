@@ -69,7 +69,7 @@ export default class ArticleContent extends Vue {
   }
   public editContent() {
     // console.log(this, runtime)
-    window.open(path.join(runtime.remotePath, this.content.path), 'editContent')
+    window.open(runtime.remotePath + this.content.path, 'editContent')
   }
   protected mounted() {
     this.$nextTick(() => {

@@ -15,7 +15,7 @@ const base = {
   // 由于要将项目和数据进行分离, 所以mock数据需要到外面的项目里取
   mockPath: path.join(process.cwd(), '..', staticPath, local_dir),
   remote,
-  remotePath: path.join(remote.host, remote.user, remote.repository, 'edit', remote.branch, remote.dir)
+  remotePath: [remote.host, remote.user, remote.repository, 'edit', remote.branch, remote.dir].join('/')
 }
 const store = {
   // 是否缓存请求结果
