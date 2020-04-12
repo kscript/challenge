@@ -6,7 +6,7 @@
     <v-viewer class="content-container" :title="title" :content="content"></v-viewer>
     <el-divider>
     <p class="text-right">
-      <el-link type="primary" @click="editContent">参与编辑此页 <i class="iconfont icon-github"></i></el-link>
+      <el-link type="primary" @click="editContent" :href="runtime.remotePath + content.path.replace(/\\/g, '/')" target="editContent">参与编辑此页 <i class="iconfont icon-github"></i></el-link>
     </p>
     </el-divider>
     <ul class="links">
@@ -40,6 +40,7 @@ import viewer from '@/components/viewer.vue'
   }
 })
 export default class ArticleContent extends Vue {
+  public runtime = runtime
   public params: anyObject = {}
   public title = ''
   public content: anyObject = {}
