@@ -1,6 +1,6 @@
 <template>
   <el-footer class="text-center">
-    &copy;kscript 2020-
+    Copyright &copy; 2020-present kscript
   </el-footer>
 </template>
 <script lang="ts">

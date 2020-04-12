@@ -1,16 +1,14 @@
 <template>
   <el-main class="view-article_content" v-if="title">
     <h1>
-      <el-row>
-        <el-col :span="20">
-          {{title}}
-        </el-col>
-        <el-col :span="4" class="text-right">
-          <el-button type="text" @click="editContent">参与编辑此页 <i class="iconfont icon-github"></i></el-button>
-        </el-col>
-      </el-row>
+      {{title}}
     </h1>
     <v-viewer class="content-container" :title="title" :content="content"></v-viewer>
+    <el-divider>
+    <p class="text-right">
+      <el-link type="primary" @click="editContent">参与编辑此页 <i class="iconfont icon-github"></i></el-link>
+    </p>
+    </el-divider>
     <ul class="links">
       <li  v-for="(vo, index) in link" :key="vo.path" >
         <span v-show="!index">
@@ -71,7 +69,7 @@ export default class ArticleContent extends Vue {
   }
   public editContent() {
     // console.log(this, runtime)
-    window.open(path.join(runtime.remotePath, this.content.path), '_blank')
+    window.open(path.join(runtime.remotePath, this.content.path), 'editContent')
   }
   protected mounted() {
     this.$nextTick(() => {
