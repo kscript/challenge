@@ -1,6 +1,15 @@
 <template>
   <el-main class="view-article_content" v-if="title">
-    <h1>{{title}}</h1>
+    <h1>
+      <el-row>
+        <el-col :span="20">
+          {{title}}
+        </el-col>
+        <el-col :span="4" class="text-right">
+          <el-button type="text" @click="editContent">参与编辑此页 <i class="iconfont icon-github"></i></el-button>
+        </el-col>
+      </el-row>
+    </h1>
     <v-viewer class="content-container" :title="title" :content="content"></v-viewer>
     <ul class="links">
       <li  v-for="(vo, index) in link" :key="vo.path" >
@@ -20,6 +29,9 @@
   </el-main>
 </template>
 <script lang="ts">
+// @ts-ignore
+import path from 'path'
+import { runtime } from '@/config'
 import { Component, Vue, Watch } from 'vue-property-decorator'
 import valine from '@/components/valine.vue'
 import viewer from '@/components/viewer.vue'
@@ -56,6 +68,10 @@ export default class ArticleContent extends Vue {
       name: 'article',
       path: this.content.path
     })
+  }
+  public editContent() {
+    // console.log(this, runtime)
+    window.open(path.join(runtime.remotePath, this.content.path), '_blank')
   }
   protected mounted() {
     this.$nextTick(() => {
