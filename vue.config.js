@@ -4,6 +4,7 @@ function resolve (dir) {
 }
 module.exports = {
   publicPath: '/challenge/',
+  // indexPath: '404.html',
   devServer: {
     proxy: {
       '/api': {

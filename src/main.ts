@@ -14,8 +14,11 @@ declare module 'vue/types/vue' {
 Vue.config.productionTip = false
 Vue.use(eventBus)
 Vue.use(elementUI)
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+store.dispatch('info').then(() => {
+  new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount('#app')
+  console.log(store)
+})

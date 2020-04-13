@@ -1,4 +1,5 @@
 module.exports = {
+    '/info.json': 'info',
     // 匹配分类信息
     '/:name/categorys.json': 'categorys?name=:name',
     '/:name/timeline.json': 'timeline?name=:name',

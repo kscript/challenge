@@ -1,4 +1,5 @@
 export default class StoreData {
+  public info: null | anyObject = null
   public pagenos: anyObject<anyObject<number>> = {}
   public toggleLinks: anyObject = {}
   public mdFiles: anyObject<string> = {}

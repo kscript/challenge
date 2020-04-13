@@ -68,5 +68,20 @@ module.exports = {
             })
         },
         get: {}
+    },
+    info: {
+        format(method, params, result) {
+            return new Promise((resolve, reject) => {
+                fs.readFile(path.join(runtime.mockPath, 'info.json'), (err, data) => {
+                    if (err) {
+                        resolve({})
+                        console.log(err)
+                    } else {
+                        resolve(JSON.parse(data))
+                    }
+                })
+            })
+        },
+        get: {}
     }
 }
