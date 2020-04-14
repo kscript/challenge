@@ -14,7 +14,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 export default class CategoryCommon extends Vue {
   public title = ''
   public params: anyObject = {}
-  public category: anyObject[] = []
+  public category: anyObject = []
   public categoryMap: anyObject = {}
   public slotData = {
     category: []
@@ -68,9 +68,11 @@ export default class CategoryCommon extends Vue {
     }
   }
   public updateCategoryMap() {
-    this.category.forEach(item => {
-      this.categoryMap[item[this.options.mapKey]] = item
-    })
+    if (Array.isArray(this.category)) {
+      this.category.forEach(item => {
+        this.categoryMap[item[this.options.mapKey]] = item
+      })
+    }
   }
   protected mounted() {
     this.$set(this.slotData, this.options.mapKey, '')
@@ -78,12 +80,12 @@ export default class CategoryCommon extends Vue {
     this.$store.dispatch(this.options.action, {
       name: this.options.name,
       category: params.category
-    }).then((category) => {
-      this.category = category
-      this.$set(this.slotData, 'category', category)
+    }).then((response) => {
+      this.category = response.data || []
+      this.$set(this.slotData, 'category', this.category)
       this.updateCategoryMap()
-      if (category.length) {
-        const current = this.categoryMap[params[this.options.mapKey]] || category[0]
+      if (this.category.length) {
+        const current = this.categoryMap[params[this.options.mapKey]] || this.category[0]
         this.selectItem(current)
       }
     })

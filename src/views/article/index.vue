@@ -3,7 +3,7 @@
     <el-main v-if="this.$route.name === name">
     <div class="fix-container">
       <el-timeline>
-        <el-timeline-item  v-for="vo in timeline" :key="vo.title" :timestamp="vo.time" hide-timestamp placement="top">
+        <el-timeline-item  v-for="vo in timelineData" :key="vo.title" :timestamp="vo.time" hide-timestamp placement="top">
           <router-link :to="{
           name: 'article_category_content',
           params: {
@@ -35,9 +35,12 @@ import { Component, Vue } from 'vue-property-decorator'
 })
 export default class Article extends Vue {
   public name = 'article'
-  public timeline = []
+  public timeline: anyObject = {}
   public isInit = false
   public categorys: anyObject[] = []
+  get timelineData() {
+    return Array.isArray(this.timeline.data) ? this.timeline.data : []
+  }
   public formatTime(date: number) {
     const time = new Date(date)
     return [

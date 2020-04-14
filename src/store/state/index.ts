@@ -1,6 +1,5 @@
 export default class StoreData {
   public info: null | anyObject = null
-  public pagenos: anyObject<anyObject<number>> = {}
   public toggleLinks: anyObject = {}
   public mdFiles: anyObject<string> = {}
   public categorys: anyObject<string[][]> = {
@@ -8,12 +7,12 @@ export default class StoreData {
     article: [],
     knowledge: [],
   }
-  public timeline: anyObject<string[][]> = {
-    question: [],
-    article: [],
-    knowledge: [],
+  public timeline: anyObject<anyObject> = {
+    question: {},
+    article: {},
+    knowledge: {},
   }
-  public category: anyObject<anyObject<anyObject[]>> = {
+  public category: anyObject<anyObject<anyObject>> = {
     question: {},
     article: {},
     knowledge: {},

@@ -13,10 +13,7 @@ export default class Footer extends Vue {}
 .el-footer{
   line-height: 60px;
   border-top: 1px solid #ddd;
-  // color: $footer_color;
-  // background: $footer_bg;
   a{
-    // color: $footer_color;
     padding: 0 5px;
     margin-right: 10px;
   }

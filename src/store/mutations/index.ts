@@ -11,9 +11,10 @@ const mutations: MutationTree<StoreData> = {
         category,
         data
     }) {
-        if (state.category.hasOwnProperty(name)) {
-            state.category[name][category] = data
-        }
+        const pageno = data.pageno
+        const naState = state.category[name] = state.category[name] || []
+        const caState = naState[category] = naState[category] || {}
+        caState[pageno] = data
     },
     categorys(state, {
         name,
@@ -23,19 +24,16 @@ const mutations: MutationTree<StoreData> = {
             state.categorys[name] = data
         }
     },
-    pagenos(state, { name, pageno }) {
-        state.pagenos[name] = pageno
-    },
-    toggleLinks(state, { name, links }) {
+    toggleLinks(state, { name, links, pageno }) {
         state.toggleLinks[name] = links
     },
     timeline(state, {
         name,
         data
     }) {
-        if (state.timeline.hasOwnProperty(name)) {
-            state.timeline[name] = data
-        }
+        const pageno = data.pageno
+        state.timeline[name] = state.timeline[name] || []
+        state.timeline[name][pageno] = data
     },
     info(state, value) {
         state.info = value

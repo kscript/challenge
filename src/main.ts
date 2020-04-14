@@ -20,5 +20,4 @@ store.dispatch('info').then(() => {
     store,
     render: h => h(App)
   }).$mount('#app')
-  console.log(store)
 })

@@ -24,9 +24,10 @@ module.exports = {
     category: {
         format(method, params, result) {
             let name = params.name
+            let pageno = params.pageno
             let category = params.category
             return new Promise((resolve, reject) => {
-                fs.readFile(path.join(runtime.mockPath, name, category, 'category.json'), (err, data) => {
+                fs.readFile(path.join(runtime.mockPath, name, category, 'category_' + pageno + '.json'), (err, data) => {
                     if (err) {
                         resolve([])
                         console.log(err)
@@ -41,8 +42,9 @@ module.exports = {
     timeline: {
         format(method, params, result) {
             let name = params.name
+            let pageno = params.pageno
             return new Promise((resolve, reject) => {
-                fs.readFile(path.join(runtime.mockPath, name, 'timeline.json'), (err, data) => {
+                fs.readFile(path.join(runtime.mockPath, name, 'timeline_' + pageno + '.json'), (err, data) => {
                     if (err) {
                         resolve([])
                         console.log(err)

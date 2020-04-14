@@ -6,7 +6,7 @@
       <div class="fix-container">
       <el-card class="box-card question-list" shadow="never">
         <h3 slot="header" class="card-title clearfix">最新更新面试题</h3>
-        <el-table :data="questions" :show-header="false" 
+        <el-table :data="questionsData" :show-header="false" 
         @row-click="cliclQuestionLink"
         >
           <el-table-column prop="title">
@@ -24,7 +24,7 @@
       </el-card>
       <el-card class="box-card article-list" shadow="never">
         <h3 slot="header" class="card-title clearfix">最新更新文章</h3>
-        <el-table :data="articles" :show-header="false"
+        <el-table :data="articlesData" :show-header="false"
           @row-click="cliclArticleLink"
         >
           <el-table-column>
@@ -75,12 +75,18 @@ import footer from '@/components/footer.vue'
 })
 export default class Index extends Vue {
   public name = 'index'
-  public questions = []
-  public articles = []
+  public questions: anyObject = {}
+  public articles: anyObject = {}
   public pages: anyObject = {
     size: 10,
     total: 0,
     layout: 'prev, pager, next'
+  }
+  get questionsData() {
+    return Array.isArray(this.questions.data) ? this.questions.data : []
+  }
+  get articlesData() {
+    return Array.isArray(this.articles.data) ? this.articles.data : []
   }
   @Watch('$route.name', { immediate: true })
   public async routeNameChange() {

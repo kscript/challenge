@@ -36,9 +36,9 @@ export default class Question extends Vue {
   public name = 'question'
   public categorys: string[][] = []
   public async getCategorys() {
-    return this.categorys = await this.$store.dispatch('categorys', {
+    return this.categorys = (await this.$store.dispatch('categorys', {
       name: this.name
-    })
+    })).data
   }
   protected async mounted() {
     await this.getCategorys()
