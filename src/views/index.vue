@@ -5,34 +5,45 @@
     <el-main>
       <div class="fix-container">
       <el-card class="box-card question-list" shadow="never">
-        <h3 slot="header" class="card-title clearfix">最新更新面试题</h3>
+        <h3 slot="header" class="card-title clearfix">
+          最新更新面试题
+          <router-link class="right" to="question">
+            查看更多<i class="el-icon-d-arrow-right"></i>
+          </router-link>
+        </h3>
         <el-table :data="questionsData" :show-header="false" 
         @row-click="cliclQuestionLink"
         >
-          <el-table-column prop="title">
-          </el-table-column>
-          <el-table-column width="80">
+          <el-table-column>
             <template slot-scope="scope">
-              <div  class="text-right">
+              <span>{{scope.row.title}}</span>
+              <span class="right">
                 <el-tag size="mini">
                   {{scope.row.category[0]}}
                 </el-tag>
-              </div>
+              </span>
             </template>
           </el-table-column>
         </el-table>
       </el-card>
       <el-card class="box-card article-list" shadow="never">
-        <h3 slot="header" class="card-title clearfix">最新更新文章</h3>
+        <h3 slot="header" class="card-title clearfix">
+          最新更新文章
+          <router-link class="right" to="article">
+            查看更多<i class="el-icon-d-arrow-right"></i>
+          </router-link>
+        </h3>
         <el-table :data="articlesData" :show-header="false"
           @row-click="cliclArticleLink"
         >
           <el-table-column>
             <template slot-scope="scope">
-              {{scope.row.title}}
-              <div>
-                {{scope.row.time}}
+              <div class="title">
+                {{scope.row.title}}
               </div>
+              <small>
+                {{scope.row.time}}
+              </small>
             </template>
           </el-table-column>
           <el-table-column width="80">
@@ -180,7 +191,12 @@ export default class Index extends Vue {
     }
     .card-title {
       font-size: 18px;
+      line-height: 18px;
       color: #548bb6;
+      .right {
+        color: #ccc;
+        font-size: 12px;
+      }
     }
   }
   ::v-deep .el-table__row{

@@ -9,6 +9,7 @@
       </el-col>
       <el-col :span="12">
         <el-menu
+          class="left"
           :default-active="this.activeMenu"
           mode="horizontal"
           text-color="#eee"
@@ -18,6 +19,13 @@
         >
           <el-menu-item v-for="(vo) in menu" :key="vo.name" :index="vo.name" >{{vo.label}}</el-menu-item>
         </el-menu>
+        <el-input
+          class="left"
+          size="small"
+          placeholder="请输入关键词"
+          suffix-icon="el-icon-search"
+          v-model="keyword">
+        </el-input>
       </el-col>
       <el-col :span="5" class="text-right">
         <a href="/">
@@ -31,6 +39,7 @@
 import { Component, Vue, Watch } from 'vue-property-decorator'
 @Component({})
 export default class Header extends Vue {
+  public keyword = ''
   public activeMenu = ''
   public menuMap: anyObject = {}
   public menu = [
@@ -111,6 +120,15 @@ export default class Header extends Vue {
     background: none;
     ::v-deep .el-menu-item.is-disabled {
       opacity: .9;
+    }
+  }
+  .el-input {
+    width: auto;
+    margin-left: 40px;
+    ::v-deep input{
+      color: #ccc;
+      border-color: rgba(255,255,255,.2);
+      background: rgba(0,0,0,0);
     }
   }
   .icon-github {

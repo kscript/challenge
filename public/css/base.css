@@ -11,6 +11,12 @@ html,body {
 .text-right{
   text-align: right;
 }
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
 @font-face {font-family: "iconfont";
   src: url('../fonts/iconfont.eot?t=1585230638494'); /* IE9 */
   src: url('../fonts/iconfont.eot?t=1585230638494#iefix') format('embedded-opentype'), /* IE6-IE8 */
