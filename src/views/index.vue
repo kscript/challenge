@@ -49,6 +49,7 @@
           class="text-right"
           small
           hide-on-single-page
+          @current-change="pageChange"
           :page-size="pages.size"
           :layout="pages.layout"
           :total="pages.total">
@@ -93,19 +94,23 @@ export default class Index extends Vue {
     if (this.$route.name === this.name) {
       this.questions = await this.getQuestionList()
       this.articles = await this.getArticleList()
-      // TODO 后期要在列表再包装上一层, 不然很多信息没办法取
-      this.pages.total = 10
+      this.pages.total = this.articles.total
     }
+  }
+  public async pageChange(pageno: number) {
+    this.articles = await this.getArticleList({
+      pageno
+    })
   }
   public async getQuestionList() {
     return this.$store.dispatch('timeline', {
       name: 'question'
     })
   }
-  public async getArticleList() {
-    return this.$store.dispatch('timeline', {
+  public async getArticleList(options: anyObject = {}) {
+    return this.$store.dispatch('timeline', Object.assign({
       name: 'article'
-    })
+    }, options))
   }
   public cliclArticleLink(row: anyObject) {
     this.$router.push({
@@ -143,6 +148,7 @@ export default class Index extends Vue {
   padding: 0;
   .fix-container {
     display: table;
+    height: 100%;
   }
   .el-card__body, .el-table{
     &::before {
@@ -155,6 +161,16 @@ export default class Index extends Vue {
     display: table-cell;
     &.question-list {
       width: 320px;
+    }
+    &.article-list{
+      padding-bottom: 50px;
+      position: relative;
+      min-height: 100%;
+      .el-pagination{
+        position: absolute;
+        right: 0;
+        bottom: 10px;
+      }
     }
     .el-card__header {
       padding: 20px 10px;

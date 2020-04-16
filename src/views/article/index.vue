@@ -1,25 +1,23 @@
 <template>
   <el-container class="view-article" direction="vertical">
-    <el-main v-if="this.$route.name === name">
+    <el-main v-if="this.$route.name === name" v-infinite-scroll="load" infinite-scroll-immediate infinite-scroll-distance="50">
     <div class="fix-container">
-      <el-timeline>
-        <el-timeline-item  v-for="vo in timelineData" :key="vo.title" :timestamp="vo.time" hide-timestamp placement="top">
+      <ul class="article-list infinite-list">
+        <li v-for="vo in timelineData" :key="vo.title">
           <router-link :to="{
-          name: 'article_category_content',
-          params: {
-            name: 'article',
-            title: vo.title,
-            category: vo.category[0],
-            content: vo
-          }
-        }">
-          <el-card @click="viewContent(vo)">
-            <h4>{{vo.title}}</h4>
-            <p>{{vo.time}}</p>
-          </el-card>
+            name: 'article_category_content',
+            params: {
+              name: 'article',
+              title: vo.title,
+              category: vo.category[0],
+              content: vo
+            }
+          }">
+            <div class="title">{{vo.title}}</div>
+            <div class="time">{{vo.time}}</div>
           </router-link>
-        </el-timeline-item>
-      </el-timeline>
+        </li>
+      </ul>
     </div>
     <el-backtop target=".view-article .el-main" :bottom="100">
       <i class="icon el-icon-arrow-up"></i>
@@ -35,11 +33,19 @@ import { Component, Vue } from 'vue-property-decorator'
 })
 export default class Article extends Vue {
   public name = 'article'
-  public timeline: anyObject = {}
+  public timeline: anyObject[] = []
   public isInit = false
   public categorys: anyObject[] = []
+  public pages: anyObject = {
+    next: 1,
+    size: 10,
+    total: 0,
+    layout: 'prev, pager, next'
+  }
   get timelineData() {
-    return Array.isArray(this.timeline.data) ? this.timeline.data : []
+    return this.timeline.reduce((prev: anyObject, curr: anyObject) => {
+      return prev.concat(curr.data || [])
+    }, [])
   }
   public formatTime(date: number) {
     const time = new Date(date)
@@ -54,15 +60,26 @@ export default class Article extends Vue {
       name: this.name
     })
   }
-  public async getTimeline() {
-    this.timeline = await this.$store.dispatch('timeline', {
-      name: this.name
-    })
-    return this.timeline
+  public async getTimeline(options: anyObject = {}) {
+    return await this.$store.dispatch('timeline', Object.assign({
+      name: 'article'
+    }, options))
+  }
+  public async load() {
+    const pageno = this.pages.next
+    if (pageno === 1 || (pageno - 1) * this.pages.size < this.pages.total) {
+      this.pages.next++
+      const result = await this.getTimeline({
+        pageno
+      })
+      this.pages.total = result.total
+      this.pages.size = result.size
+      this.$set(this.timeline, pageno, result)
+    }
   }
   protected async mounted() {
-    await this.getTimeline()
     await this.getCategorys()
+    await this.load()
     this.isInit = true
   }
 }
@@ -71,14 +88,24 @@ export default class Article extends Vue {
 .el-container{
   height: 100%;
 }
-
-.el-timeline {
-  max-width: 720px;
-  padding: 30px 0;
-  text-align: left;
-  h4{
-    font-size: 20px;
-    margin-bottom: 10px;
+.article-list {
+  padding: 10px 0px;
+  li {
+    border-bottom: 1px dashed #eee;
+    &:last-child {
+      border-bottom: 0;
+    }
+    .title {
+      padding-top: 20px;
+      color: #555;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+    .time {
+      color: #aaa;
+      font-size: 13px;
+      padding-bottom: 20px;
+    }
   }
 }
 </style>
