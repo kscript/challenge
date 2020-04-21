@@ -1,8 +1,6 @@
 <template>
   <div>
-    <h1>
-      {{title}}
-    </h1>
+    <h1 :class="{'is-top': !!info.top}">{{title}}</h1>
     <div class="base-info">
       <span>
         最后编辑时间: {{content.time}}
@@ -104,9 +102,19 @@ export default class Viewer extends Vue {
   margin: 0 auto;
 }
 h1 {
-  font-size: 28px;
   line-height: 60px;
+  font-size: 28px;
   border-bottom: 1px dashed #eee;
+  &.is-top::before{
+    content: "顶";
+    margin-right: 5px;
+    color: #fff;
+    background: #afa9a9;
+    padding: 2px 4px;
+    vertical-align: bottom;
+    font-size: 22px;
+    border-radius: 7px;
+  }
 }
 .base-info {
   padding: 10px 0;
