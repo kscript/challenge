@@ -23,8 +23,8 @@
           class="left"
           size="small"
           placeholder="请输入关键词"
-          suffix-icon="el-icon-search"
           v-model="keyword">
+          <i class="el-icon-search" slot="suffix" @click="search"></i>
         </el-input>
       </el-col>
       <el-col :span="5" class="text-right">
@@ -91,6 +91,7 @@ export default class Header extends Vue {
       }
     }
   }
+  public search() {}
   protected mounted() {
     // this.activeMenu = this.$route.params.
     this.updateMenuMap()
@@ -125,6 +126,10 @@ export default class Header extends Vue {
   .el-input {
     width: auto;
     margin-left: 40px;
+    i {
+      padding: 10px;
+      cursor: pointer;
+    }
     ::v-deep input{
       color: #ccc;
       border-color: rgba(255,255,255,.2);
