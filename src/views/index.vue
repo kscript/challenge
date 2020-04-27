@@ -157,7 +157,6 @@ export default class Index extends Vue {
 }
 .el-main {
   padding: 0;
-  overflow: hidden;
   .fix-container {
     display: table;
     height: 100%;
