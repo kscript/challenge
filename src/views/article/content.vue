@@ -1,21 +1,27 @@
 <template>
-  <el-main class="view-article_content" v-if="title">
-    <v-viewer class="content-container" :title="title" :content="content"></v-viewer>
-    <ul class="links">
-      <li  v-for="(vo, index) in link" :key="vo.path" >
-        <span v-show="!index">
-          上一篇: 
-        </span>
-        <span v-show="index">
-          下一篇: 
-        </span>
-        <el-link type="primary" v-if="vo.path" @click="toggleLink(vo)">
-          {{vo.title}}
-        </el-link>
-        <span v-else>已经是{{link[0].title ? '最后' : '第'}}一篇了</span>
-      </li>
-    </ul>
-    <v-valine class="valine-container" :options="options"></v-valine>
+  <el-main class="view-article_content">
+    <transition
+    name="custom-classes-transition"
+    enter-active-class="animated fadeIn">
+    <div v-if="title">
+      <v-viewer class="content-container" :title="title" :content="content"></v-viewer>
+      <ul class="links">
+        <li v-for="(vo, index) in link" :key="vo.path" >
+          <span v-show="!index">
+            上一篇: 
+          </span>
+          <span v-show="index">
+            下一篇: 
+          </span>
+          <el-link type="primary" v-if="vo.path" @click="toggleLink(vo)">
+            {{vo.title}}
+          </el-link>
+          <span v-else>已经是{{link[0].title ? '最后' : '第'}}一篇了</span>
+        </li>
+      </ul>
+      <v-valine class="valine-container" :options="options"></v-valine>
+    </div>
+    </transition>
   </el-main>
 </template>
 <script lang="ts">
@@ -48,7 +54,10 @@ export default class ArticleContent extends Vue {
     })
   }
   public toggleLink(vo: anyObject) {
-    this.$emit('toggleLink', vo)
+    this.title = ''
+    this.$nextTick(() => {
+      this.$emit('toggleLink', vo)
+    })
   }
   public async setToggleLink() {
     this.link = await this.$store.dispatch('toggleLinks', {
@@ -65,6 +74,7 @@ export default class ArticleContent extends Vue {
 </script>
 <style lang="scss" scoped>
 .view-article_content{
+  width: 1200px;
   .links {
     overflow: hidden;
     li {

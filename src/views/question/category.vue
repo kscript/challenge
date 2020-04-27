@@ -1,7 +1,7 @@
 <template>
   <v-category class="view-question_category" @toggleLink="toggleLink" :activeItem="activeItem" :options="options">
     <template slot-scope="scope">
-    <el-aside>
+    <el-aside class="animated fadeIn">
       <el-table 
         :data="scope.data.category"
         :show-header="false"
@@ -16,7 +16,7 @@
         </el-table-column>
       </el-table>
     </el-aside>
-    <router-view v-if="scope.data.title"></router-view>
+    <router-view v-if="scope.data.title" class="animated" :class="{fadeIn: title}"></router-view>
     <el-backtop target=".view-question_category" :bottom="100">
       <i class="icon el-icon-arrow-up"></i>
     </el-backtop>
@@ -45,8 +45,11 @@ export default class QuestionCategory extends Vue {
     return this.title === row.title ? 'selected' : ''
   }
   public toggleLink(row: anyObject) {
-    this.activeItem = row
-    this.title = row.title
+    this.title = ''
+    this.$nextTick(() => {
+      this.activeItem = row
+      this.title = row.title
+    })
   }
 }
 </script>

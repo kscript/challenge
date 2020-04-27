@@ -4,7 +4,7 @@
     <el-container v-if="$route.name === name">
     <el-main>
       <div class="fix-container">
-      <el-card class="box-card question-list" shadow="never">
+      <el-card class="box-card question-list animated zoomIn" shadow="never">
         <h3 slot="header" class="card-title clearfix">
           最新更新面试题
           <router-link class="right" to="question">
@@ -26,7 +26,7 @@
           </el-table-column>
         </el-table>
       </el-card>
-      <el-card class="box-card article-list" shadow="never">
+      <el-card class="box-card article-list animated zoomIn" shadow="never">
         <h3 slot="header" class="card-title clearfix">
           最新更新文章
           <router-link class="right" to="article">
@@ -157,6 +157,7 @@ export default class Index extends Vue {
 }
 .el-main {
   padding: 0;
+  overflow: hidden;
   .fix-container {
     display: table;
     height: 100%;

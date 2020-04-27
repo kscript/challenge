@@ -12,6 +12,7 @@ const $axios = axios.create({
 })
 let loadingInstance: ElLoadingComponent | null = null
 const loadingOpen = () => {
+  return false
   return loadingInstance = Loading.service({
     lock: true,
     text: '加载中..',

@@ -1,27 +1,27 @@
 <template>
   <el-container class="view-article" direction="vertical">
     <el-main v-if="this.$route.name === name" v-infinite-scroll="load" infinite-scroll-immediate infinite-scroll-distance="50">
-    <div class="fix-container">
-      <ul class="article-list infinite-list">
-        <li v-for="vo in timelineData" :key="vo.title">
-          <router-link :to="{
-            name: 'article_category_content',
-            params: {
-              name: 'article',
-              title: vo.title,
-              category: vo.category[0],
-              content: vo
-            }
-          }">
-            <div class="title">{{vo.title}}</div>
-            <div class="time">{{vo.time}}</div>
-          </router-link>
-        </li>
-      </ul>
-    </div>
-    <el-backtop target=".view-article .el-main" :bottom="100">
-      <i class="icon el-icon-arrow-up"></i>
-    </el-backtop>
+      <div class="fix-container animated zoomIn">
+        <ul class="article-list infinite-list">
+          <li v-for="vo in timelineData" :key="vo.title">
+            <router-link :to="{
+              name: 'article_category_content',
+              params: {
+                name: 'article',
+                title: vo.title,
+                category: vo.category[0],
+                content: vo
+              }
+            }">
+              <div class="title">{{vo.title}}</div>
+              <div class="time">{{vo.time}}</div>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+      <el-backtop target=".view-article .el-main" :bottom="100">
+        <i class="icon el-icon-arrow-up"></i>
+      </el-backtop>
     </el-main>
     <router-view v-else-if="isInit"></router-view>
   </el-container>

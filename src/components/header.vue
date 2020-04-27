@@ -109,6 +109,7 @@ export default class Header extends Vue {
     color: $header_color;
   }
   .logo {
+    width: 50px;
     height: 50px;
     vertical-align: middle;
   }

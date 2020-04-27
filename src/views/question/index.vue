@@ -6,7 +6,7 @@
           <router-link :to="{
             path: '/question/' + vo[0] + '/'
           }">
-            <section class="text-center">
+            <section class="text-center animated flipInY">
               <h3 :data-content="vo[0]">{{ vo[0] }}</h3>
               <p>{{ vo[1] || '' }}</p>
             </section>
