@@ -1,10 +1,17 @@
 <template>
   <el-container class="view-article" direction="vertical">
-    <el-main v-if="this.$route.name === name" v-infinite-scroll="load" infinite-scroll-immediate infinite-scroll-distance="50">
-      <div class="fix-container animated zoomIn">
+    <el-main
+      v-if="this.$route.name === name"
+      v-infinite-scroll="load"
+      infinite-scroll-immediate
+      infinite-scroll-distance="50"
+    >
+      <div class="fix-container">
         <ul class="article-list infinite-list">
           <li v-for="vo in timelineData" :key="vo.title">
-            <router-link :to="{
+            <div class="animated zoomInLeft">
+              <router-link
+                :to="{
               name: 'article_category_content',
               params: {
                 name: 'article',
@@ -12,10 +19,12 @@
                 category: vo.category[0],
                 content: vo
               }
-            }">
-              <div class="title">{{vo.title}}</div>
-              <div class="time">{{vo.time}}</div>
-            </router-link>
+            }"
+              >
+                <div class="title">{{vo.title}}</div>
+                <div class="time">{{vo.time}}</div>
+              </router-link>
+            </div>
           </li>
         </ul>
       </div>

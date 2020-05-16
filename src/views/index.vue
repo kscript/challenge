@@ -4,7 +4,7 @@
     <el-container v-if="$route.name === name">
     <el-main>
       <div class="fix-container">
-      <el-card class="box-card question-list animated zoomIn" shadow="never">
+      <el-card class="box-card question-list" shadow="never">
         <h3 slot="header" class="card-title clearfix">
           最新更新面试题
           <router-link class="right" to="question">
@@ -13,20 +13,21 @@
         </h3>
         <el-table :data="questionsData" :show-header="false" 
         @row-click="cliclQuestionLink"
+          empty-text=" "
         >
           <el-table-column>
-            <template slot-scope="scope">
+            <div class="animated zoomInLeft" slot-scope="scope">
               <span>{{scope.row.title}}</span>
               <span class="right">
                 <el-tag size="mini">
                   {{scope.row.category[0]}}
                 </el-tag>
               </span>
-            </template>
+            </div>
           </el-table-column>
         </el-table>
       </el-card>
-      <el-card class="box-card article-list animated zoomIn" shadow="never">
+      <el-card class="box-card article-list" shadow="never">
         <h3 slot="header" class="card-title clearfix">
           最新更新文章
           <router-link class="right" to="article">
@@ -35,23 +36,22 @@
         </h3>
         <el-table :data="articlesData" :show-header="false"
           @row-click="cliclArticleLink"
+          empty-text=" "
         >
           <el-table-column>
             <template slot-scope="scope">
-              <div class="title">
-                {{scope.row.title}}
-              </div>
-              <small>
-                {{scope.row.time}}
-              </small>
-            </template>
-          </el-table-column>
-          <el-table-column width="80">
-            <template slot-scope="scope">
-              <div  class="text-right">
-                <el-tag size="mini">
-                  {{scope.row.category[0]}}
-                </el-tag>
+              <div  class="animated zoomInLeft">
+                <div class="right">
+                  <el-tag size="mini">
+                    {{scope.row.category[0]}}
+                  </el-tag>
+                </div>
+                <div class="title">
+                  {{scope.row.title}}
+                </div>
+                <small>
+                  {{scope.row.time}}
+                </small>
               </div>
             </template>
           </el-table-column>
