@@ -49,7 +49,7 @@ html,body {
   display: inline-block;
   color: #f6f8fa;
   background-color: #3f3f3f!important;
-  padding: 20px 20px!important;
+  padding: 12px!important;
   width: 800px;
 }
 .markdown-body a{
