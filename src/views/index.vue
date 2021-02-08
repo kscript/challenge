@@ -16,7 +16,7 @@
           empty-text=" "
         >
           <el-table-column>
-            <div class="animated zoomInLeft" slot-scope="scope">
+            <div class="_animated zoomInLeft" slot-scope="scope">
               <span>{{scope.row.title}}</span>
               <span class="right">
                 <el-tag size="mini">
@@ -40,7 +40,7 @@
         >
           <el-table-column>
             <template slot-scope="scope">
-              <div  class="animated zoomInLeft">
+              <div  class="_animated zoomInLeft">
                 <div class="right">
                   <el-tag size="mini">
                     {{scope.row.category[0]}}

@@ -9,7 +9,7 @@
       <div class="fix-container">
         <ul class="article-list infinite-list">
           <li v-for="vo in timelineData" :key="vo.title">
-            <div class="animated zoomInLeft">
+            <div class="_animated zoomInLeft">
               <router-link
                 :to="{
               name: 'article_category_content',
